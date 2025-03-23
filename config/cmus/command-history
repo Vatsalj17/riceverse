@@ -1,0 +1,19 @@
+q
+set output_plugin
+save
+set output_plugin=pulse
+set alsa_device=default
+set alsa_devices=default
+set output_plugin=alsa
+set shuffle=true
+add Music/Playlist/
+clear
+selectall
+shuffle
+s
+reset
+add Music/
+next
+add ~/Music/
+add Bayaan Hasan Raheem Rovalio - Maand (Lyric Video).mp3
+add
