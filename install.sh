@@ -1,64 +1,132 @@
 #!/bin/bash
 
-REPO_DIR="$HOME/hyprspace"
-CONFIG_DIR="$HOME/.config"
-TMUX_PLUGIN_DIR="$CONFIG_DIR/tmux/plugins"
+# Colors for output
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
 
-echo "🚀 Setting up Hyprspace dotfiles..."
+echo -e "${BLUE}=== Hyprspace Dotfiles Installation Script ===${NC}"
+echo -e "${YELLOW}This script will install the Hyprspace dotfiles configuration${NC}"
+echo
 
-# Ensure ~/.config exists
-mkdir -p "$CONFIG_DIR"
-
-# Symlink function
-link_file() {
-    local src="$REPO_DIR/$1"
-    local dest="$HOME/$2"
-
-    if [ -e "$dest" ] || [ -L "$dest" ]; then
-        echo "⚠️  $dest already exists. Backing up to $dest.bak"
-        mv "$dest" "$dest.bak"
+# Function to check if a command exists
+check_command() {
+    if ! command -v $1 &> /dev/null; then
+        echo -e "${RED}Error: $1 is not installed. Please install it before continuing.${NC}"
+        exit 1
     fi
-
-    ln -s "$src" "$dest"
-    echo "✅ Linked $dest → $src"
 }
 
-# Clone the repo if not already cloned
-if [ ! -d "$REPO_DIR" ]; then
-    echo "📂 Cloning hyprspace repository..."
-    git clone --depth=1 https://github.com/vatsalj17/hyprspace.git "$REPO_DIR"
-else
-    echo "🔄 Updating existing repository..."
-    cd "$REPO_DIR" && git pull
-fi
+# Check for required commands
+check_command git
 
-# Link home dotfiles
-link_file "home/.bashrc" ".bashrc"
-link_file "home/.bash_profile" ".bash_profile"
-link_file "home/.clang-format" ".clang-format"
-link_file "home/.tmux.conf" ".tmux.conf"
+# Create necessary directories
+create_directories() {
+    echo -e "${BLUE}Creating necessary directories...${NC}"
+    mkdir -p "$HOME/.config"
+    mkdir -p "$HOME/.config/tmux/plugins"
+    echo -e "${GREEN}Directories created successfully.${NC}"
+}
 
-# Link config files
-for dir in cava cmus fastfetch hypr kitty mpv neofetch nvim qt6ct rofi Thunar tmux waybar wofi; do
-    if [ -d "$CONFIG_DIR/$dir" ]; then
-        echo "⚠️  $CONFIG_DIR/$dir already exists. Backing up..."
-        mv "$CONFIG_DIR/$dir" "$CONFIG_DIR/${dir}.bak"
+# Backup existing configs
+backup_configs() {
+    echo -e "${BLUE}Backing up existing configurations...${NC}"
+    BACKUP_DIR="$HOME/.config/dotfiles_backup_$(date +%Y%m%d%H%M%S)"
+    mkdir -p "$BACKUP_DIR"
+    
+    # List of configs to backup
+    configs=("cava" "cmus" "fastfetch" "hypr" "kitty" "mpv" "neofetch" "nvim" "qt6ct" "rofi" "Thunar" "tmux" "waybar" "wofi" "starship.toml")
+    
+    for config in "${configs[@]}"; do
+        if [ -e "$HOME/.config/$config" ]; then
+            echo -e "${YELLOW}Backing up $config...${NC}"
+            cp -r "$HOME/.config/$config" "$BACKUP_DIR/"
+        fi
+    done
+    
+    # Backup home files
+    home_files=(".bash_profile" ".bashrc" ".clang-format" ".tmux.conf")
+    for file in "${home_files[@]}"; do
+        if [ -e "$HOME/$file" ]; then
+            echo -e "${YELLOW}Backing up $file...${NC}"
+            cp "$HOME/$file" "$BACKUP_DIR/"
+        fi
+    done
+    
+    echo -e "${GREEN}Backup completed to $BACKUP_DIR${NC}"
+}
+
+# Clone the repository
+clone_repo() {
+    echo -e "${BLUE}Cloning Hyprspace repository...${NC}"
+    REPO_DIR="$HOME/hyprspace"
+    
+    if [ -d "$REPO_DIR" ]; then
+        echo -e "${YELLOW}Repository directory already exists. Removing...${NC}"
+        rm -rf "$REPO_DIR"
     fi
-    ln -s "$REPO_DIR/config/$dir" "$CONFIG_DIR/$dir"
-    echo "✅ Linked $CONFIG_DIR/$dir"
-done
+    
+    git clone https://github.com/yourusername/hyprspace.git "$REPO_DIR"
+    
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}Failed to clone repository. Please check your internet connection and try again.${NC}"
+        exit 1
+    fi
+    
+    echo -e "${GREEN}Repository cloned successfully.${NC}"
+}
 
-# Ensure Tmux plugins directory exists
-mkdir -p "$TMUX_PLUGIN_DIR"
+# Copy configuration files
+copy_configs() {
+    echo -e "${BLUE}Copying configuration files...${NC}"
+    
+    # Copy config files
+    cp -r "$REPO_DIR/config/"* "$HOME/.config/"
+    
+    # Copy home files
+    cp "$REPO_DIR/home/.bash_profile" "$HOME/"
+    cp "$REPO_DIR/home/.bashrc" "$HOME/"
+    cp "$REPO_DIR/home/.clang-format" "$HOME/"
+    cp "$REPO_DIR/home/.tmux.conf" "$HOME/"
+    
+    echo -e "${GREEN}Configuration files copied successfully.${NC}"
+}
 
-# Clone catppuccin/tmux if not already present
-if [ ! -d "$TMUX_PLUGIN_DIR/catppuccin" ]; then
-    echo "🌙 Installing Catppuccin Tmux theme..."
-    git clone --depth=1 https://github.com/catppuccin/tmux.git "$TMUX_PLUGIN_DIR/catppuccin"
-    echo "✅ Catppuccin Tmux theme installed!"
-else
-    echo "🔄 Updating Catppuccin Tmux theme..."
-    cd "$TMUX_PLUGIN_DIR/catppuccin" && git pull
-fi
+# Clone catppuccin/tmux repository
+clone_catppuccin() {
+    echo -e "${BLUE}Cloning catppuccin/tmux repository...${NC}"
+    
+    # Remove existing directory if it exists
+    if [ -d "$HOME/.config/tmux/plugins/catppuccin" ]; then
+        echo -e "${YELLOW}Catppuccin tmux directory already exists. Removing...${NC}"
+        rm -rf "$HOME/.config/tmux/plugins/catppuccin"
+    fi
+    
+    # Clone the repository
+    git clone https://github.com/catppuccin/tmux.git "$HOME/.config/tmux/plugins/catppuccin"
+    
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}Failed to clone catppuccin/tmux. Please check your internet connection and try again.${NC}"
+        exit 1
+    fi
+    
+    echo -e "${GREEN}Catppuccin tmux cloned successfully.${NC}"
+}
 
-echo "🎉 Installation complete! Please restart your session for all changes to take effect."
+# Main installation function
+install() {
+    create_directories
+    backup_configs
+    clone_repo
+    copy_configs
+    clone_catppuccin
+    
+    echo -e "${GREEN}Installation completed successfully!${NC}"
+    echo -e "${YELLOW}You may need to log out and log back in for all changes to take effect.${NC}"
+    echo -e "${BLUE}Enjoy your new Hyprspace configuration!${NC}"
+}
+
+# Run the installation
+install
