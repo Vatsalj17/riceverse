@@ -115,8 +115,8 @@ sudo pacman -S hyprland kitty neovim tmux waybar rofi
 Feel free to modify any of these configurations to suit your preferences:
 
 - Colors and themes can be adjusted in individual config files
-- Keybindings are primarily defined in `hypr/hyprland.conf` and respective application configs
-- Waybar modules can be modified in `waybar/config` and styled in `waybar/style.css`
+- Keybindings are primarily defined in `hypr/binds.conf` and respective application configs
+- Waybar modules can be modified in `waybar/config.jsonc` and styled in `waybar/style.css`
 
 ## 📸 More Screenshots
 
