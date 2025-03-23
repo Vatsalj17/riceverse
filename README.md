@@ -4,6 +4,18 @@ My custom Hyprland + Arch Linux configuration files, carefully tuned for both ae
 
 ![Screenshot placeholder](assets/Hyprland.png)
 
+## 📑 Navigation
+
+- [Features](#-features)
+- [What's Included](#-whats-included)
+- [Installation](#-installation)
+  - [Quick Install](#quick-install)
+  - [Manual Installation](#manual-installation)
+- [Dependencies](#️-dependencies)
+- [Customization](#-customization)
+- [Screenshots](#-more-screenshots)
+- [Acknowledgements](#-acknowledgements)
+
 ## ✨ Features
 
 - **Hyprland** configuration optimized for workflow efficiency
