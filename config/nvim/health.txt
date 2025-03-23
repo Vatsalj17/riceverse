@@ -1,0 +1,9 @@
+
+
+==============================================================================
+luasnip: require("luasnip.health").check()
+
+luasnip ~
+- WARNING             For Variable/Placeholder-transformations, luasnip requires
+              the jsregexp library. See `:help |luasnip-lsp-snippets-transformations`| for advice
+          
