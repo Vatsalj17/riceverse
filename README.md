@@ -143,6 +143,9 @@ Feel free to modify any of these configurations to suit your preferences:
 
 - [Catppuccin](https://github.com/catppuccin) for their beautiful color schemes
 - The Hyprland and Arch Linux communities for inspiration and resources
+- [Dry_Increase7287](https://www.reddit.com/user/Dry_Increase7287/comments/1cmc96k/wofi_configuration/) for the Wofi configuration  
+- [Sejjy](https://github.com/sejjy/mechabar) for the Waybar configuration
+- [Typecraft Dev](https://github.com/typecraft-dev) for Neovim and Tmux configurations  
 
 ---
 
