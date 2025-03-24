@@ -1,4 +1,4 @@
-# Riceverse
+# 🌌 RiceVerse
 
 My custom Hyprland + Arch Linux configuration files, carefully tuned for both aesthetics and performance. This repo contains all my personal dotfiles for creating a sleek, efficient, and functional desktop environment.
 
