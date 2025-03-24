@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Colors for output
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -7,8 +6,8 @@ BLUE='\033[0;34m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 
-echo -e "${BLUE}=== Hyprspace Dotfiles Installation Script ===${NC}"
-echo -e "${YELLOW}This script will install the Hyprspace dotfiles configuration${NC}"
+echo -e "${BLUE}=== RiceVerse Dotfiles Installation Script ===${NC}"
+echo -e "${YELLOW}This script will install the RiceVerse dotfiles configuration${NC}"
 echo
 
 # Function to check if a command exists
@@ -58,29 +57,12 @@ backup_configs() {
     echo -e "${GREEN}Backup completed to $BACKUP_DIR${NC}"
 }
 
-# Clone the repository
-clone_repo() {
-    echo -e "${BLUE}Cloning Hyprspace repository...${NC}"
-    REPO_DIR="$HOME/hyprspace"
-    
-    if [ -d "$REPO_DIR" ]; then
-        echo -e "${YELLOW}Repository directory already exists. Removing...${NC}"
-        rm -rf "$REPO_DIR"
-    fi
-    
-    git clone https://github.com/yourusername/hyprspace.git "$REPO_DIR"
-    
-    if [ $? -ne 0 ]; then
-        echo -e "${RED}Failed to clone repository. Please check your internet connection and try again.${NC}"
-        exit 1
-    fi
-    
-    echo -e "${GREEN}Repository cloned successfully.${NC}"
-}
-
 # Copy configuration files
 copy_configs() {
     echo -e "${BLUE}Copying configuration files...${NC}"
+    
+    # Determine the current directory (assuming the script is run from the repository root)
+    REPO_DIR="$(pwd)"
     
     # Copy config files
     cp -r "$REPO_DIR/config/"* "$HOME/.config/"
@@ -119,13 +101,12 @@ clone_catppuccin() {
 install() {
     create_directories
     backup_configs
-    clone_repo
     copy_configs
     clone_catppuccin
     
     echo -e "${GREEN}Installation completed successfully!${NC}"
     echo -e "${YELLOW}You may need to log out and log back in for all changes to take effect.${NC}"
-    echo -e "${BLUE}Enjoy your new Hyprspace configuration!${NC}"
+    echo -e "${BLUE}Enjoy your new Riceverse configuration!${NC}"
 }
 
 # Run the installation
