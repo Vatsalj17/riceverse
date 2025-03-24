@@ -1,4 +1,4 @@
-# Ricebowl
+# Riceverse
 
 My custom Hyprland + Arch Linux configuration files, carefully tuned for both aesthetics and performance. This repo contains all my personal dotfiles for creating a sleek, efficient, and functional desktop environment.
 
@@ -57,8 +57,8 @@ My custom Hyprland + Arch Linux configuration files, carefully tuned for both ae
 ### Quick Install
 
 ```bash
-git clone https://github.com/Vatsalj17/ricebowl.git
-cd ricebowl
+git clone https://github.com/Vatsalj17/riceverse.git
+cd riceverse
 ./install.sh
 ```
 
@@ -74,17 +74,17 @@ If you prefer to install manually or just want specific components:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/Vatsalj17/ricebowl.git
+   git clone https://github.com/Vatsalj17/riceverse.git
    ```
 
 2. Copy the desired configuration folders to your `~/.config` directory:
    ```bash
-   cp -r ricebowl/config/FOLDER_NAME ~/.config/
+   cp -r riceverse/config/FOLDER_NAME ~/.config/
    ```
 
 3. For home directory files:
    ```bash
-   cp ricebowl/home/FILE_NAME ~/
+   cp riceverse/home/FILE_NAME ~/
    ```
 
 4. For Tmux with Catppuccin theme:
