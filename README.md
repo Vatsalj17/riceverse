@@ -11,6 +11,7 @@ My custom Hyprland + Arch Linux configuration files, carefully tuned for both ae
 - [Installation](#-installation)
   - [Quick Install](#quick-install)
   - [Manual Installation](#manual-installation)
+  - [Uninstalling Configuration](#uninstalling-configuration)
 - [Dependencies](#️-dependencies)
 - [Customization](#-customization)
 - [Screenshots](#-more-screenshots)
@@ -92,6 +93,27 @@ If you prefer to install manually or just want specific components:
    mkdir -p ~/.config/tmux/plugins
    git clone https://github.com/catppuccin/tmux ~/.config/tmux/plugins/catppuccin
    ```
+
+### Uninstalling Configuration
+
+If you want to revert to your previous system configuration, use the provided uninstall script:
+
+1. Navigate to the Riceverse repository:
+   ```bash
+   cd ~/riceverse
+   ```
+
+2. Run the uninstallation script:
+   ```bash
+   ./uninstall.sh
+   ```
+
+The uninstall script will:
+- Automatically find and restore your most recent backup
+- Remove all Riceverse-specific configurations
+- Preserve your original settings
+
+**Note:** After uninstallation, log out and log back in to ensure all changes take effect.
 
 ## ⚙️ Dependencies
 
