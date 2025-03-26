@@ -169,6 +169,3 @@ Feel free to modify any of these configurations to suit your preferences:
 - [Sejjy](https://github.com/sejjy/mechabar) for the Waybar configuration
 - [Typecraft Dev](https://github.com/typecraft-dev) for Neovim and Tmux configurations  
 
----
-
-**Enjoy your new Hyprspace configuration!** 🚀
