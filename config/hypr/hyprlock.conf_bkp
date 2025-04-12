@@ -4,7 +4,7 @@ background {
     monitor =
     #path = screenshot
     #color = $(sed -n '4p' ~/.cache/wal/colors)
-    path = /home/Vatsal/Pictures/Wallpapers/lbg.png
+    path = $HOME/Pictures/Wallpapers/lbg.png
     #color = $background
     blur_passes = 2
     contrast = 1
@@ -73,7 +73,7 @@ label {
 # Profile Picture
 image {
     monitor =
-    path = /home/Vatsal/Pictures/dp.jpg
+    path = $HOME/Pictures/dp.jpg
     size = 100
     border_size = 2
     border_color = $foreground
@@ -85,7 +85,7 @@ image {
 # Desktop Environment
 image {
     monitor =
-    path = /home/Vatsal/Pictures/profile_pictures/hypr.png
+    path = $HOME/Pictures/profile_pictures/hypr.png
     size = 75
     border_size = 2
     border_color = $foreground
@@ -97,7 +97,7 @@ image {
 # CURRENT SONG
 label {
     monitor =
-    text = cmd[update:1000] echo "$(/home/Vatsal/Documents/Scripts/whatsong.sh)" 
+    text = cmd[update:1000] echo "$($HOME/Documents/Scripts/whatsong.sh)" 
     color = $foreground
     #color = rgba(255, 255, 255, 0.6)
     font_size = 18
@@ -109,7 +109,7 @@ label {
 
 label {
     monitor =
-    text = cmd[update:1000] echo "$(/home/Vatsal/Documents/Scripts/whoami.sh)"
+    text = cmd[update:1000] echo "$($HOME/Documents/Scripts/whoami.sh)"
     color = $foreground
     font_size = 14
     font_family = JetBrains Mono
@@ -120,7 +120,7 @@ label {
 
 label {
     monitor =
-    text = cmd[update:1000] echo "$(/home/Vatsal/Documents/Scripts/battery.sh)"
+    text = cmd[update:1000] echo "$($HOME/Documents/Scripts/battery.sh)"
     color = $foreground
     font_size = 24
     font_family = JetBrains Mono
@@ -131,7 +131,7 @@ label {
 
 label {
     monitor =
-    text = cmd[update:1000] echo "$(/home/Vatsal/Documents/Scripts/network-status.sh)"
+    text = cmd[update:1000] echo "$($HOME/Documents/Scripts/network-status.sh)"
     color = $foreground
     font_size = 24
     font_family = JetBrains Mono

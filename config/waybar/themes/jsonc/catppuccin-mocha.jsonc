@@ -65,6 +65,6 @@
     "custom/power"          // power button
   ],
 
-  "include": ["/home/Vatsal/.config/waybar/modules.jsonc"]
+  "include": ["$HOME/.config/waybar/modules.jsonc"]
 
 }
