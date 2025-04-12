@@ -7,7 +7,6 @@
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias ls='colorls --color=auto'
 alias icat='kitty +kitten icat'
 alias play='/bin/ls | shuf | xargs mpv'
 PS1='[\u@\h \W]\$ '
@@ -47,6 +46,4 @@ cd() {
         builtin cd "$@"
     fi
 }
-
-source $(dirname $(gem which colorls))/tab_complete.sh
 
