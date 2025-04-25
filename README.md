@@ -169,4 +169,9 @@ Feel free to modify any of these configurations to suit your preferences:
 - [Sejjy](https://github.com/sejjy/mechabar) for the Waybar configuration
 - [Typecraft Dev](https://github.com/typecraft-dev) for Neovim and Tmux configurations  
 
+
+## Repo Activity
+
+![Alt](https://repobeats.axiom.co/api/embed/d53459a11d56c0e18d2610f6d0282931561caaf9.svg "Repobeats analytics image")
+
 ---
