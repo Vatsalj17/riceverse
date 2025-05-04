@@ -9,7 +9,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "clangd", "jdtls", "pyright" },
+        ensure_installed = { "lua_ls", "clangd", "jdtls", "pyright", "html", "cssls", "ts_ls", "rust_analyzer", "tailwindcss" },
       })
     end,
   },
@@ -18,15 +18,50 @@ return {
     config = function()
       local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
+      -- Lua
+      lspconfig.lua_ls.setup({ capabilities = capabilities })
+
+      -- C/C++
+      lspconfig.clangd.setup({ capabilities = capabilities })
+
+      -- HTML
+      lspconfig.html.setup({ capabilities = capabilities })
+
+      -- CSS
+      lspconfig.cssls.setup({ capabilities = capabilities })
+
+      -- JavaScript/TypeScript
+      lspconfig.ts_ls.setup({ capabilities = capabilities })
+
+      -- Rust
+      lspconfig.rust_analyzer.setup({ capabilities = capabilities })
+
+      -- Tailwind 
+      lspconfig.tailwindcss.setup({capabilities = capabilities})
+
+      -- Set up diagnostics display
+      vim.diagnostic.config({
+        virtual_text = true, -- Inline message
+        signs = true, -- Keep signs like 'W' and 'E'
+        underline = true, -- Underline problem areas
+        update_in_insert = false, -- Don't update while typing
+        float = {
+          border = "rounded",
+          source = "", -- Show source like 'clangd'
+          header = "",
+          prefix = "",
+        },
       })
-      lspconfig.clangd.setup({
-        capabilities = capabilities,
-      })
+
+      -- Show diagnostics on hover after 250ms
+      vim.o.updatetime = 250
+      vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})]])
+
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+      -- Telescope diagnostics
+      vim.keymap.set("n", "<leader>ld", require("telescope.builtin").diagnostics, { desc = "List diagnostics" })
     end,
   },
 }

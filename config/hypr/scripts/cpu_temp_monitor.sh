@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MAX_TEMP=65  # Set temperature threshold
+MAX_TEMP=70  # Set temperature threshold
 NOTIFY_INTERVAL=60  # Time between warnings
 
 while true; do

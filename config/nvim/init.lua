@@ -18,11 +18,6 @@ vim.g.loaded_perl_provider = 0
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.opt.mouse = ""
-
-vim.opt.number = true
-vim.opt.relativenumber = true
-
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "*", -- Applies to all file types
     callback = function()
@@ -30,13 +25,13 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 })
 
-vim.api.nvim_create_autocmd("VimEnter", {
-    pattern = "*",
-    callback = function()
-        vim.fn.setreg("c", "I// \027j")
-    end,
-})
-
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--     pattern = "*",
+--     callback = function()
+--         vim.fn.setreg("c", "I// \027j")
+--     end,
+-- })
+--
 
 require("lazy").setup("plugins")
 require("vim-options")
