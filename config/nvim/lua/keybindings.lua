@@ -1,8 +1,8 @@
 local opts = { noremap = true, silent = true }
 local map = vim.api.nvim_set_keymap
 
-vim.keymap.set("v", "Y", '"+y', opts)
-vim.keymap.set("n", "<leader>p", '"+p', opts)
+map("v", "Y", '"+y', opts)
+map("n", "<leader>p", '"+p', opts)
 map('n', '<leader>n', ':nohlsearch<CR>', opts)
 map('i', '<C-H>', '<C-W>', opts)
 map('i', '<C-BS>', '<C-W>', opts)

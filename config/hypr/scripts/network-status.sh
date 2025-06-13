@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Enhanced network-status.sh for Arch Linux
-# Displays appropriate network connectivity icons based on connection type and status
-
 # --- CONFIGURATION ---
 # Icon set for WiFi (using Nerd Font icons)
 WIFI_DISCONNECTED="󰤭 "

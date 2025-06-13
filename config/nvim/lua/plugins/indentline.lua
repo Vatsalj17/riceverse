@@ -46,7 +46,7 @@ return {
 			end,
 		})
 
-		-- 🛠 Fix indent lines disappearing after Neo-tree closes
+		-- 🛠   Fix indent lines disappearing after Neo-tree closes
 		vim.api.nvim_create_autocmd("User", {
 			pattern = "NeotreeClose",
 			callback = function()

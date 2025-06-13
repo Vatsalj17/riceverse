@@ -32,10 +32,6 @@ return {
           ["<C-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
 
-          -- Use <C-n> and <C-p> for navigating the completion menu
-          ["<C-n>"] = cmp.mapping.select_next_item(),
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
-
           -- Use <Tab> to select completion or jump through snippets
           ["<Tab>"] = function(fallback)
             local luasnip = require("luasnip")

@@ -19,7 +19,16 @@ return {
       local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       -- Lua
-      lspconfig.lua_ls.setup({ capabilities = capabilities })
+      lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { 'vim' },
+            },
+          },
+        },
+      })
 
       -- C/C++
       lspconfig.clangd.setup({ capabilities = capabilities })
@@ -47,9 +56,10 @@ return {
         update_in_insert = false, -- Don't update while typing
         float = {
           border = "rounded",
-          source = "", -- Show source like 'clangd'
+          source = "always", -- Show source like 'clangd'
           header = "",
           prefix = "",
+          scope = "cursor",
         },
       })
 
@@ -60,8 +70,21 @@ return {
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
-      -- Telescope diagnostics
       vim.keymap.set("n", "<leader>ld", require("telescope.builtin").diagnostics, { desc = "List diagnostics" })
+      -- vim.keymap.set("n", "<leader>e", vim.diagnostics.open_float, {})
+
+      local diagnostics_hidden = false
+      vim.keymap.set("n", "<leader>td", function()
+        diagnostics_hidden = not diagnostics_hidden
+        if diagnostics_hidden then
+          vim.diagnostic.disable(0)
+          print("🔕 Diagnostics hidden")
+        else
+          vim.diagnostic.enable(0)
+          print("🔔 Diagnostics shown")
+        end
+      end, { desc = "Toggle diagnostics display" })
+
     end,
   },
 }
