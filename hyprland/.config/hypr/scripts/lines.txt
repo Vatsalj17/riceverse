@@ -1,0 +1,44 @@
+# Funny messages for command failures
+# Lines starting with # are comments and will be ignored
+# Empty lines are also ignored
+
+🤖 Command not found. Did you mean to summon a robot?
+🧙‍♂️ That spell doesn't exist in this realm, wizard!
+🐧 Even Tux is confused by that command...
+🚀 Houston, we have a command problem!
+🎯 You missed! Try again, sharpshooter.
+🍕 That command is as real as pineapple on pizza debates
+🎮 Achievement Unlocked: Creative Command Inventor
+🦄 That command is as mythical as a unicorn
+🔍 Command not found. Have you tried turning it off and on again?
+🎪 Welcome to the circus of broken commands!
+🤷‍♂️ Even Stack Overflow doesn't know this one
+⚡ Your keyboard has more power than that command
+🎭 That's not a command, that's performance art!
+🛸 Command abducted by aliens. Please try again.
+🎲 You rolled a critical fail on that command
+🍪 No cookies for invalid commands!
+🌟 That command exists only in a parallel universe
+🔮 My crystal ball says... 'command not found'
+🎈 Your command just popped like a balloon
+🦸‍♂️ Not all heroes wear capes, but valid commands exist
+🧼 That command was so clean, it vanished into thin air!
+📦 Command not found. Try checking the junk drawer of your brain.
+👻 Boo! That command doesn't exist in this dimension.
+📡 Your command signal got lost in space.
+🧃 Sorry, that command only works when you're holding a juice box.
+💾 That command was last seen in Windows 95.
+🎤 That command dropped the mic... and left the building.
+👢 Invalid command. Kicked it right outta the terminal saloon.
+🍿 Sit back and enjoy the failure show!
+🛠️ That command needs more duct tape and hope.
+🧠 That was a bold move, Cotton. Let's see if it pays off.
+🦕 That command is extinct. Try a more evolved one.
+📉 That command failed harder than my last stock investment.
+🎓 That's not how we do things in *Command School*.
+🧩 Looks like you've unlocked the 'Mystery Command' easter egg!
+🕳️ That command just fell into the black hole of logic.
+🍺 That command works only after three beers and a reboot.
+🧻 That command is like toilet paper in 2020: not available.
+🌊 That command wiped out like a bad surfer.
+📚 That command didn't pass the reading comprehension test.

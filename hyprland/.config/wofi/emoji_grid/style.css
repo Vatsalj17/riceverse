@@ -1,0 +1,50 @@
+window {
+    background-color: rgba(30, 30, 46, 0.9); /* Catppuccin Macchiato Base, with transparency */
+    border: 3px solid #cba6f7; /* Catppuccin Mauve */
+    border-radius: 20px;
+}
+
+#input {
+    margin: 15px;
+    padding: 12px;
+    background-color: #1e1e2e; /* Catppuccin Base */
+    border: 2px solid #585b70; /* Catppuccin Surface2 */
+    border-radius: 12px;
+    color: #cdd6f4; /* Catppuccin Text */
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 16px;
+}
+
+#input:focus {
+    border-color: #89b4fa; /* Catppuccin Blue */
+}
+
+#inner-box {
+    /* We are now targeting the inner-box instead of scroll */
+    margin: 0 15px 15px 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    grid-gap: 12px;
+}
+
+/* It's also good practice to make sure the scroll container doesn't interfere */
+#scroll {
+    border: none;
+    margin: 0;
+}
+
+/* Styling for each individual emoji cell */
+#entry {
+    padding: 8px;
+    border-radius: 12px;
+    /* Center the emoji character inside the cell */
+    text-align: center;
+    font-size: 28px; /* Make the emoji nice and big! */
+    color: #cdd6f4; /* Catppuccin Text */
+}
+
+/* Style for the currently highlighted/selected emoji */
+#entry:selected {
+    background-color: #cba6f7; /* Catppuccin Mauve */
+    color: #1e1e2e; /* Catppuccin Base */
+}

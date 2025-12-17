@@ -1,0 +1,15 @@
+# ~/.config/wofi/emoji_grid/config
+
+mode=dmenu
+width=800  # We might need a fixed, wider window for fixed columns
+height=600
+prompt=Search Emoji 🥳
+halign=center
+valign=center
+
+# This is the key change. We are now telling wofi to handle the layout.
+columns=12
+
+layer=overlay
+allow_images=true
+hide_scroll=true

@@ -1,0 +1,255 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$os\
+$username\
+$directory\
+$git_branch\
+$git_status\
+$c\
+$custom\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+$shell\
+$rust\
+$lua\
+$docker_context\
+$cmd_duration\
+$status\
+$line_break$character"""
+
+palette = 'catppuccin_mocha'
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+orange = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
+
+[os]
+disabled = false
+style = "bold blue"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = ""
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+[username]
+show_always = true
+style_user = "bold lavender"
+style_root = "bold red"
+format = '[ $user ]($style)'
+
+[directory]
+style = "bold peach"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+# Your heavy substitution list - kept intact!
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+"Videos" = " "
+".config" = " "
+"Codes" = "󰘦 "
+".cache" = " "
+"hypr" = " "
+"nvim" = " "
+"dwm" = " "
+"kitty" = "󰄛 "
+"tmux" = " "
+"spotify" = "󰓇 "
+"minecraft" = "󰍳 "
+"windows" = " "
+"Assembly" = " "
+"C/" = " /"
+"C++" = " "
+"C#" = "󰌛 "
+"Crystal" = " "
+"Dart" = " "
+"D/" = " /"
+"Fortran" = "󱈚 "
+"Go" = " "
+"Haskell" = " "
+"Java" = " "
+"Julia" = " "
+"Kotlin" = " "
+"Lua" = " "
+"mips" = "󰘚 "
+"Nim" = " "
+"Perl" = " "
+"Php" = " "
+"Python" = " "
+"Ruby" = " "
+"Rust" = " "
+"Scripting" = " "
+"Swift" = " "
+"Vedic" = "󰥳 "
+"Verilog" = "󰍛 "
+"Zig" = " "
+"Important" = " "
+"Screenshots" = "󰹑 "
+"Bliss" = "󰳩 "
+"Mashup" = "󰽰 "
+"Peace" = "󰔟 "
+"Playlist" = "󰲸 "
+"Kicad" = " "
+"virtual-machines" = "󰒒 "
+
+[git_branch]
+symbol = ""
+style = "bold purple"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+ignore_submodules = true
+style = "bold red"
+format = '[$all_status$ahead_behind ]($style)'
+
+[nodejs]
+symbol = ""
+style = "green"
+format = '[ $symbol ($version) ]($style)'
+
+[c]
+symbol = " "
+style = "blue"
+format = '[ $symbol($version) ]($style)'
+
+[custom.cpp]
+detect_extensions = ['cpp']
+symbol = " "
+style = "blue"
+format = '[ $symbol($version) ]($style)'
+
+[shell]
+format = '[ $symbol($version) ]($style)'
+
+[golang]
+symbol = ""
+style = "cyan"
+format = '[ $symbol( $version) ]($style)'
+
+[php]
+symbol = ""
+style = "purple"
+format = '[ $symbol( $version) ]($style)'
+
+[java]
+symbol = " "
+style = "red"
+format = '[ $symbol( $version) ]($style)'
+
+[kotlin]
+symbol = ""
+style = "purple"
+format = '[ $symbol( $version) ]($style)'
+
+[haskell]
+symbol = ""
+style = "purple"
+format = '[ $symbol( $version) ]($style)'
+
+[python]
+symbol = ""
+style = "yellow"
+format = '[ $symbol( $version) (\($virtualenv\)) ]($style)'
+
+[custom.asm]
+detect_extensions = ['asm', 's']
+symbol = " "
+style = "red"
+format = '[ $symbol( $version) ]($style)'
+
+[lua]
+symbol = " "
+style = "blue"
+format = '[ $symbol( $version) ]($style)'
+
+[rust]
+symbol = " "
+style = "red"
+format = '[ $symbol( $version) ]($style)'
+
+[docker_context]
+symbol = ""
+style = "blue"
+format = '[ $symbol( $context) ]($style)'
+
+[cmd_duration]
+min_time = 0 
+style = "bold yellow"
+format = "[ took $duration ]($style)"
+show_milliseconds = true
+
+[time]
+disabled = true # Minimal often means no clock, set to false to enable
+time_format = "%R"
+style = "bold overlay0"
+format = '[  $time ]($style)'
+
+[status]
+disabled = false
+style = "bold red"
+symbol = "✖ "
+format = '[$symbol$status]($style) '
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = '[❯](bold green)'
+error_symbol = '[❯](bold red)'
+vimcmd_symbol = '[❮](bold green)'
+vimcmd_replace_one_symbol = '[❮](bold orange)'
+vimcmd_replace_symbol = '[❮](bold orange)'
+vimcmd_visual_symbol = '[❮](bold lavender)'

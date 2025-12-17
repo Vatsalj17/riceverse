@@ -1,165 +1,154 @@
-# 🌌 RiceVerse
+# RiceVerse
 
-My custom Hyprland + Arch Linux configuration files, carefully tuned for both aesthetics and performance. This repo contains all my personal dotfiles for creating a sleek, efficient, and functional desktop environment.
+**RiceVerse** is a modular dotfiles configuration for Arch Linux. This repository uses **GNU Stow** to treat every configuration group (Shell, Desktop, Dev Tools) as a separate package.
 
-![Screenshot placeholder](assets/Hyprland.png)
+This architecture allows for **surgical installation**: deploy the entire environment or just the components you need (e.g., only Neovim or only the Terminal setup) without polluting your system.
 
-## 📑 Navigation
+## 📸 Gallery
 
-- [Features](#-features)
-- [What's Included](#-whats-included)
-- [Installation](#-installation)
-  - [Quick Install](#quick-install)
-  - [Manual Installation](#manual-installation)
-  - [Uninstalling Configuration](#uninstalling-configuration)
-- [Dependencies](#️-dependencies)
-- [Customization](#-customization)
-- [Screenshots](#-more-screenshots)
-- [Acknowledgements](#-acknowledgements)
+<table align="center">
+  <tr>
+    <td colspan="6" align="center">
+      <h3>✨ The Rice (Hyprland)</h3>
+      <img src="assets/snaps/Hyprland.png" alt="Hyprland Desktop" width="100%">
+    </td>
+  </tr>
 
-## ✨ Features
+  <tr>
+    <td colspan="3" align="center">
+        <b>💻 Neovim IDE</b><br>
+        <img src="assets/snaps/nvim.png" alt="Neovim" width="100%">
+    </td>
+    <td colspan="3" align="center">
+        <b>🌐 Browser</b><br>
+        <img src="assets/snaps/browser.png" alt="Browser" width="100%">
+    </td>
+  </tr>
 
-- **Hyprland** configuration optimized for workflow efficiency
-- **Neovim** setup with essential plugins and custom keybindings
-- **Kitty** terminal with custom theme and settings
-- **Waybar** with a clean, information-rich layout
-- **Tmux** configuration with Catppuccin theme integration
-- Additional configs for Cava, Cmus, Rofi, Wofi, and more
+  <tr>
+    <td colspan="2" align="center">
+        <b>📂 Thunar Files</b><br>
+        <img src="assets/snaps/thunar.png" alt="Thunar" width="100%">
+    </td>
+    <td colspan="2" align="center">
+        <b>🎵 Music (Cava)</b><br>
+        <img src="assets/snaps/music.png" alt="Music" width="100%">
+    </td>
+    <td colspan="2" align="center">
+        <b>🚀 Wofi Launcher</b><br>
+        <img src="assets/snaps/wofi.png" alt="Wofi" width="100%">
+    </td>
+  </tr>
+</table>
 
-## 📦 What's Included
+## Project Architecture
+
+The repository is structured to separate configuration logic (Payloads) from installation logic (Scripts).
+
+```text
+~/riceverse
+├── assets/             # Screenshots & logos
+├── gui-tools/          # GTK 3/4, Kvantum, Thunar configs
+├── hyprland/           # Hyprland, Waybar, Rofi, Wofi, SwayNC
+├── nvim/               # Lua-based Neovim IDE
+├── scripts/            # Automation (install.sh / uninstall.sh)
+├── shell/              # Bash, Zsh, Starship
+├── suckless/           # Source code for DWM, ST, Dmenu
+├── terminal/           # Kitty, Tmux, Fastfetch, Bat
+├── tools/              # MPD, Cava, Zathura, GDB, Clang
+└── Wallpapers/         # 4K Wallpapers
 
 ```
-├── config/
-│   ├── cava/            # Audio visualizer config
-│   ├── cmus/            # Music player config
-│   ├── fastfetch/       # System info fetcher config
-│   ├── hypr/            # Hyprland window manager config
-│   ├── kitty/           # Terminal emulator config
-│   ├── mpv/             # Media player config
-│   ├── neofetch/        # System info fetcher config
-│   ├── nvim/            # Text editor config
-│   ├── qt6ct/           # Qt6 configuration
-│   ├── rofi/            # Application launcher config
-│   ├── starship.toml    # Shell prompt config
-│   ├── Thunar/          # File manager config
-│   ├── tmux/            # Terminal multiplexer config
-│   ├── waybar/          # Status bar config
-│   └── wofi/            # Application launcher config
-├── home/                # Dotfiles for $HOME directory
-│   ├── .bash_profile
-│   ├── .bashrc
-│   ├── .clang-format
-│   └── .tmux.conf
-└── install.sh           # Installation script
-```
 
-## 🚀 Installation
+## Details & Features
 
-### Quick Install
+| Module | Components | Description |
+| --- | --- | --- |
+| **Desktop** | `Hyprland`, `Waybar`, `Wofi` | Blur-heavy tiling WM with animated bars and app launchers. |
+| **Shell** | `Starship`, `Fastfetch` | Instant-load shell with custom prompt and visual fetchers. |
+| **Editor** | `Neovim` | Full IDE with LSP, Treesitter, DAP, and Telescope. |
+| **Terminal** | `Kitty`, `Tmux` | GPU-accelerated terminal with session management. |
+| **Suckless** | `DWM`, `ST`, `Dmenu` | Patched source code managed locally in `.config`. |
+| **Media** | `MPD`, `Cava`, `MPV` | Music server with visualizers. |
+
+## Installation Guide
+
+### Prerequisites
+
+* **OS:** Arch Linux (Recommended)
+* **Packages:** `git`, `stow` (The script attempts to install these, but having them helps).
+
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Vatsalj17/riceverse.git
-cd riceverse
-./install.sh
+git clone https://github.com/Vatsalj17/riceverse.git ~/.dotfiles
+cd ~/.dotfiles
 ```
 
-The installation script will:
-- Create necessary directories
-- Back up your existing configurations
-- Copy all dotfiles to their appropriate locations
-- Install the Catppuccin theme for Tmux
+### 2. Run the Installer
 
-### Manual Installation
+The script `scripts/install.sh` handles dependency resolution (via `pacman`/`yay`) and symlinking.
 
-If you prefer to install manually or just want specific components:
+**Option A: Full Installation (Recommended)**
+Installs every module, resolves all dependencies, and compiles suckless tools.
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/Vatsalj17/riceverse.git
-   ```
-
-2. Copy the desired configuration folders to your `~/.config` directory:
-   ```bash
-   cp -r riceverse/config/FOLDER_NAME ~/.config/
-   ```
-
-3. For home directory files:
-   ```bash
-   cp riceverse/home/FILE_NAME ~/
-   ```
-
-4. For Tmux with Catppuccin theme:
-   ```bash
-   mkdir -p ~/.config/tmux/plugins
-   git clone https://github.com/catppuccin/tmux ~/.config/tmux/plugins/catppuccin
-   ```
-
-### Uninstalling Configuration
-
-If you want to revert to your previous system configuration, use the provided uninstall script:
-
-1. Navigate to the Riceverse repository:
-   ```bash
-   cd ~/riceverse
-   ```
-
-2. Run the uninstallation script:
-   ```bash
-   ./uninstall.sh
-   ```
-
-The uninstall script will:
-- Automatically find and restore your most recent backup
-- Remove all Riceverse-specific configurations
-- Preserve your original settings
-
-**Note:** After uninstallation, log out and log back in to ensure all changes take effect.
-
-## ⚙️ Dependencies
-
-This configuration works best with:
-
-- Arch Linux (or other Linux distributions)
-- Hyprland
-- Kitty terminal
-- Neovim
-- Tmux
-- Waybar
-- Rofi/Wofi
-
-Install basic dependencies on Arch with:
 ```bash
-sudo pacman -S hyprland kitty neovim tmux waybar rofi
+chmod +x scripts/install.sh
+./scripts/install.sh
 ```
 
-## 🎨 Customization
+**Option B: Modular Installation**
+Only want specific parts? Pass the folder names as arguments.
 
-Feel free to modify any of these configurations to suit your preferences:
+```bash
+# Example: Install only Neovim and the Terminal environment
+./scripts/install.sh nvim terminal
+```
 
-- Colors and themes can be adjusted in individual config files
-- Keybindings are primarily defined in `hypr/binds.conf` and respective application configs
-- Waybar modules can be modified in `waybar/config.jsonc` and styled in `waybar/style.css`
+**Option C: Headless / Minimal**
+Install only the shell (Zsh/Starship) and Git configs.
 
-## 📸 More Screenshots
+```bash
+./scripts/install.sh shell tools
+```
 
-#### Neovim
-![Screenshot placeholder](assets/nvim.png)
+> **Note:** The installer automatically backs up existing configs to prevent conflicts using Stow's `--adopt` strategy.
 
-#### Thunar File Manager
-![Screenshot placeholder](assets/thunar.png)
+## Uninstallation Guide
 
-#### Tmux
-![Screenshot placeholder](assets/tmux.png)
+To safely remove configurations without breaking your system packages:
 
-#### Applauncher (wofi)
-![Screenshot placeholder](assets/wofi.png)
+```bash
+chmod +x scripts/uninstall.sh
+./scripts/uninstall.sh
+```
 
-#### Music
-![Screenshot placeholder](assets/music.png)
+* **Selective Removal:** `./scripts/uninstall.sh nvim` (Removes only Neovim links).
+* **Safety:** This script removes *symlinks* and cleans up `make uninstall` for suckless tools. It does **not** remove system packages (like `hyprland` or `firefox`) to avoid dependency breakage.
 
-#### Browsing
-![Screenshot placeholder](assets/Browser.png)
+## Critical Keybinds
 
+The workflow is keyboard-centric, utilizing `Super` (Windows Key) and Vim motions.
+
+* **General:**
+* `Super` + `Enter`: Terminal (Kitty)
+* `Super` + `Space`: App Launcher (Wofi)
+* `Super` + `E`: File Manager (Thunar)
+* `Super` + `X`: Lock Screen
+
+
+* **Window Management:**
+* `Super` + `H/J/K/L`: Focus Window
+* `Super` + `Ctrl` + `H/J/K/L`: Move Window
+* `Super` + `Q`: Close Window
+* `Super` + `F`: Toggle Floating
+
+
+* **Power User:**
+* `Alt` + `S`: **OCR / Image-to-Text** (Custom Python Script)
+* `Super` + `V`: Clipboard History
+* `Super` + `W`: Wallpaper Selector
+* `Super` + `I`: Emofi Clipboard
 
 ## 🙏 Acknowledgements
 
@@ -170,3 +159,5 @@ Feel free to modify any of these configurations to suit your preferences:
 - [Typecraft Dev](https://github.com/typecraft-dev) for Neovim and Tmux configurations  
 
 ---
+
+*Maintained by [Vatsal Jaiswal](https://github.com/Vatsalj17)*

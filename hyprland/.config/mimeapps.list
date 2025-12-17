@@ -1,0 +1,34 @@
+[Default Applications]
+# Documents
+application/pdf=org.pwmt.zathura.desktop;
+application/x-pdf=org.pwmt.zathura.desktop;
+
+# Text / Source Code
+text/plain=nvim.desktop;
+text/x-c=nvim.desktop;
+text/x-c++=nvim.desktop;
+text/x-python=nvim.desktop;
+text/x-shellscript=nvim.desktop;
+application/x-shellscript=nvim.desktop;
+
+# Images
+image/jpeg=swayimg.desktop;
+image/png=swayimg.desktop;
+image/gif=swayimg.desktop;
+image/webp=swayimg.desktop;
+image/svg+xml=swayimg.desktop;
+
+# Audio
+audio/mpeg=mpv.desktop;
+audio/x-wav=mpv.desktop;
+audio/wav=mpv.desktop;
+audio/x-flac=mpv.desktop;
+audio/ogg=mpv.desktop;
+
+# Video
+video/mp4=mpv.desktop;
+video/x-matroska=mpv.desktop;
+video/x-msvideo=mpv.desktop;
+video/webm=mpv.desktop;
+x-scheme-handler/postman=Postman.desktop
+text/html=brave-browser.desktop

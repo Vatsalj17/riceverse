@@ -1,4 +1,0 @@
-BasedOnStyle: Google  # Or any other style you prefer
-IndentWidth: 4
-TabWidth: 4
-UseTab: Always        # Ensures tabs are used instead of spaces

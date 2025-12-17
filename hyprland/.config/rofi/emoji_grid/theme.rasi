@@ -1,0 +1,63 @@
+* {
+    background-color: transparent;
+    text-color:       #cdd6f4; /* Catppuccin Text */
+    font:             "JetBrainsMono Nerd Font 28";
+}
+
+window {
+    background-color: rgba(30, 30, 46, 0.95); /* Catppuccin Base */
+    border:           3px;
+    border-color:     #cba6f7; /* Catppuccin Mauve */
+    border-radius:    20px;
+    width:            50%;
+    height:           50%;
+}
+
+mainbox {
+    padding: 1em;
+}
+
+inputbar {
+    children:         [ prompt, entry ];
+    padding:          12px;
+    border-radius:    12px;
+    background-color: #1e1e2e; /* Catppuccin Base */
+    border:           2px;
+    border-color:     #585b70; /* Catppuccin Surface2 */
+    margin:           0 0 1em 0;
+}
+
+prompt {
+    padding: 0 1em 0 0;
+}
+
+entry {
+    placeholder: "Search...";
+    placeholder-color: #6c7086; /* Catppuccin Overlay1 */
+}
+
+/* The magic for creating the grid layout */
+listview {
+    lines: 8;   /* Number of rows */
+    columns: 10;  /* Number of columns */
+    spacing: 10px;
+    layout: vertical;
+    fixed-height: false;
+}
+
+element {
+    padding: 10px;
+    border-radius: 12px;
+    text-align: center;
+    vertical-align: 0.5;
+}
+
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+
+element selected {
+    background-color: #cba6f7; /* Catppuccin Mauve */
+    text-color:       #1e1e2e; /* Catppuccin Base */
+}

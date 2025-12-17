@@ -1,0 +1,55 @@
+/* Volume Bar */
+configuration {
+  font:                     "JetBrainsMono Nerd Font 8";
+  show-icons:               false;
+  disable-history:          true;
+  hide-scrollbar:           true;
+  location:                 0;
+  kb-cancel:                "Escape,Super_L";
+}
+@theme "~/.config/rofi/theme.rasi"
+
+/* Window */
+window {
+  location:                 south;
+  anchor:                   south;
+  x-offset:                 0px;
+  y-offset:                 -50px;
+  width:                    250px;
+  border:                   2px;
+  border-radius:            10px;
+  border-color:             @main-br;
+  background-color:         @main-bg;
+  children:                 [ mainbox ];
+}
+mainbox {
+  background-color:         inherit;
+  text-color:               @main-fg;
+  children:                 [ listview ];
+}
+/* List */
+listview {
+  lines:                    1;
+  padding:                  6px;
+  background-color:         inherit;
+}
+element {
+  padding:                  6px;
+  cursor:                   pointer;
+  background-color:         inherit;
+  text-color:               @main-fg;
+}
+element-text {
+  padding:                  0 6px;
+  cursor:                   inherit;
+  background-color:         inherit;
+  text-color:               inherit;
+  horizontal-align:         0.5;
+  vertical-align:           0.5;
+}
+inputbar {
+    children: [prompt];
+}
+prompt {
+    enabled: false;
+}
