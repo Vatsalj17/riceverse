@@ -35,8 +35,6 @@ id_ed25519
 *.pem
 
 *.gif
-gui-tools/.config/Thunar/libreoffice
-gui-tools/.config/Thunar/xfce4
 tools/.config/spicetify/CustomApps
 tools/.config/spicetify/Extentions
 Kvantum

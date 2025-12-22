@@ -4,19 +4,12 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-
 ###   aliases   ###
 alias :q='exit'
 alias grep='grep --color=auto'
+alias rm='rm -Iv'
 alias objdump='objdump -M intel'
-# alias ls='ls --color=auto'
-alias icat='kitty +kitten icat'
-alias ssh='kitty +kitten ssh'
-alias play='pwd | grep Music > /dev/null || cd ~/Music/Playlist && /bin/ls | shuf | xargs mpv --vid=no'
 alias gitbkp='$HOME/.config/hypr/scripts/backup.sh'
-alias rmspace='for f in *\ *; do mv "$f" "${f// /_}"; done'
-alias kx='while true; do pkill xdg-mime; done'
-alias ko='while true; do pkill xdg-open; done'
 alias runimg='qemu-system-x86_64 -enable-kvm -boot menu=on -drive file=Imageold.img -m 4G -cpu host -vga virtio -display sdl'
 # alias lfs='qemu-system-x86_64 -enable-kvm -drive file=host-lfs.img -m 4G -cpu host -vga virtio -display sdl -net nic -net user,hostfwd=tcp::2222-:22 -chardev socket,path=/tmp/qga.sock,server=on,wait=off,id=qga0 -device virtio-serial -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0'
 alias lfs='qemu-system-x86_64 \
@@ -41,25 +34,22 @@ alias pysrc='. .venv/bin/activate'
 alias esp=". $HOME/esp/esp-idf/export.sh"
 alias code="nvim"
 alias glog="git log --graph --abbrev-commit --decorate --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white) - %an%C(reset)%C(auto)%d%C(reset)'"
-alias heavy='export STARSHIP_CONFIG=~/.config/starship_heavy.toml'
-alias simple='unset STARSHIP_CONFIG'
-
 
 ###   exports   ###
 PS1='[\u@\h \W]\$ '
-PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
+export PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
+export PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
+export PERL_MB_OPT="--install_base \"$HOME/perl5\""
+export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 export EDITOR=nvim
 export VISUAL=nvim
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
-export QT_QPA_PLATFORMTHEME=qt6ct
 export GTK_THEME=Adwaita-dark
 export GTK_DATA_PREFIX=/usr
 export GDK_BACKEND=wayland
+export LIBVA_DRIVER_NAME=iHD
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
 --color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
@@ -72,13 +62,17 @@ export ANDROID_HOME="$HOME/Android/sdk"
 export MANPAGER="nvim +Man!"
 export BAT_THEME="Catppuccin Mocha"
 
-export PATH="$PATH:/sbin"
-export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$PATH:$HOME/.local/share/gem/ruby/3.4.0/bin"
-export PATH="$PATH:$VEDIC_INSTALL/bin"
-export PATH="$PATH:$PYENV_ROOT/bin"
-export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
-export PATH="$PATH:$ANDROID_HOME/platform-tools"
+path_add() {
+    [[ -d $1 && ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH"
+}
+
+path_add /sbin
+path_add "$HOME/.cargo/bin"
+path_add "$HOME/.local/share/gem/ruby/3.4.0/bin"
+path_add "$VEDIC_INSTALL/bin"
+path_add "$PYENV_ROOT/bin"
+path_add "$ANDROID_HOME/cmdline-tools/latest/bin"
+path_add "$ANDROID_HOME/platform-tools"
 
 if [[ -f "$HOME/.env" ]]; then
     set -a
@@ -86,25 +80,19 @@ if [[ -f "$HOME/.env" ]]; then
     set +a
 fi
 
-
-###   eval    ###
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    eval "$(ssh-agent -s)" > /dev/null
-fi
-ssh-add ~/.ssh/id_ed25519 &> /dev/null
-
-# eval "$(pyenv init --path)"
-# eval "$(pyenv init -)"
-
 ###   scripts   ###
 if [[ "$TERM" == "xterm-kitty" ]]; then
     fastfetch --config $HOME/.config/fastfetch/configv.jsonc
+elif [[ "$TERM" == "foot" ]]; then
+    fastfetch --config $HOME/.config/fastfetch/configf.jsonc
 fi
 
 # rm $HOME/ly-session.log 2> /dev/null
 
-if [[ "$TERM" == "xterm-kitty" || "$TERM" == "tmux-256color" ]]; then
-    eval "$(starship init bash)"  
+if [[ "$TERM" == "xterm-kitty" || "$TERM" == "tmux-256color" || "$TERM" == "foot" ]]; then
+    eval "$(starship init bash)"
+    alias heavy='export STARSHIP_CONFIG=~/.config/starship_heavy.toml'
+    alias simple='unset STARSHIP_CONFIG'
 fi
 
 if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -113,18 +101,16 @@ elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-# >>> juliaup initialize >>>
-# !! Contents within this block are managed by juliaup !!
+play() {
+    [[ $PWD == *Music* ]] || cd "$HOME/Music/Playlist" || return
+    ls | shuf | xargs -r mpv --vid=no
+}
 
-case ":$PATH:" in
-    *:$HOME/.juliaup/bin:*)
-        ;;
-
-    *)
-        export PATH=$HOME/.juliaup/bin${PATH:+:${PATH}}
-        ;;
-esac
-# <<< juliaup initialize <<<
+rmspace() {
+    for f in *\ *; do
+        mv -v "$f" "${f// /_}"
+    done
+}
 
 while2() {
     last_command="$(fc -ln -1)"
@@ -135,74 +121,58 @@ while2() {
     eval "while true; do $last_command; done"
 }
 
-sudol() {
-    last_command="$(fc -ln -1)"
-    if [[ -z "$last_command" ]]; then
-        echo "No command to re-run with sudo."
-        return 1
-    fi
-    eval "sudo $last_command"
-}
-
 ls() {
-    if [[ "$PWD" == "$HOME/Pictures"* ]]; then
-        mcat ls "$@"
+    if command -v lsd >/dev/null; then
+        if [[ "$PWD" == "$HOME/Pictures"* ]] && command -v mcat >/dev/null; then
+            mcat ls "$@"
+        else
+            command lsd --color=auto "$@"
+        fi
     else
-        command lsd --color=auto "$@"
+        command ls --color=auto "$@"
     fi
 }
 
 cd() {
     if [[ $1 =~ ^-[0-9]+$ ]]; then
-        num=${1#-}  # Remove the leading '-'
-        path=""
-        for ((i=0; i<num; i++)); do
-            path+="../"
-        done
-        builtin cd "$path" || return
+        builtin cd "$(printf '../%.0s' $(seq 1 ${1#-}))" || return
     else
         builtin cd "$@"
     fi
 }
 
 codesnap() {
-  local file="$1"
-  local filename="${file%.*}"
-  codesnap -f "$file" -o "${filename}.png" \
-    --code-font-family "FiraCode Nerd Font" \
-    --has-line-number \
-    --start-line-number 1 \
-    --mac-window-bar true \
-    --has-border \
-    --border-color "#ffffff30" \
-    --shadow-radius 30 \
-    --shadow-color "#00000080" \
-    --margin-x 60 \
-    --margin-y 60 \
-    --scale-factor 3 \
-    --title "$file" \
-    --title-font-family "FiraCode Nerd Font" \
-    --title-color "#ffffff" \
-    --background "#1e1e2e"
+    local file="$1"
+    local filename="${file%.*}"
+    codesnap -f "$file" -o "${filename}.png" \
+        --code-font-family "FiraCode Nerd Font" \
+        --has-line-number \
+        --start-line-number 1 \
+        --mac-window-bar true \
+        --has-border \
+        --border-color "#ffffff30" \
+        --shadow-radius 30 \
+        --shadow-color "#00000080" \
+        --margin-x 60 \
+        --margin-y 60 \
+        --scale-factor 3 \
+        --title "$file" \
+        --title-font-family "FiraCode Nerd Font" \
+        --title-color "#ffffff" \
+        --background "#1e1e2e"
 }
 
 __fzf_history_search() {
-  local selected
-  selected=$(HISTTIMEFORMAT= history | fzf +s --tac --query "$READLINE_LINE" | sed -E 's/ *[0-9]+ +//')
-  if [ -n "$selected" ]; then
-    READLINE_LINE="$selected"
-    READLINE_POINT=${#READLINE_LINE}
-  fi
+    local selected
+    selected=$(HISTTIMEFORMAT= history | fzf +s --tac --query "$READLINE_LINE" | sed -E 's/ *[0-9]+ +//')
+    if [ -n "$selected" ]; then
+        READLINE_LINE="$selected"
+        READLINE_POINT=${#READLINE_LINE}
+    fi
 }
 
 ###   binds   ###
 bind -x '"\C-r": __fzf_history_search'
 
 ###   sources   ###
-# source $(dirname $(gem which colorls))/tab_complete.sh
 source "$HOME/.cargo/env"
-# if [[ $TERM == "xterm-kitty" ]]; then source "$HOME/.config/hypr/scripts/funny.sh"; fi
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-# export SDKMAN_DIR="$HOME/.sdkman"
-# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

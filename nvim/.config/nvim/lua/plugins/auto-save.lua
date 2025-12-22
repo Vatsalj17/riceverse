@@ -3,11 +3,6 @@ return {
   config = function()
     require("auto-save").setup({
       enabled = true,
-      execution_message = {
-        message = function()
-          return ""
-        end,
-      },
       debounce_delay = 1500,
       condition = function(buf)
         local fn = vim.fn
