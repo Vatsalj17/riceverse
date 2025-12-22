@@ -1,5 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+scan_timeout = 50
+
 format = """
 $os\
 $username\
@@ -158,6 +160,9 @@ format = '[$all_status$ahead_behind ]($style)'
 symbol = ""
 style = "green"
 format = '[ $symbol ($version) ]($style)'
+detect_files = ["package.json"]
+detect_folders = []
+detect_extensions = []
 
 [c]
 symbol = " "
@@ -170,17 +175,9 @@ symbol = " "
 style = "blue"
 format = '[ $symbol($version) ]($style)'
 
-[shell]
-format = '[ $symbol($version) ]($style)'
-
 [golang]
 symbol = ""
 style = "cyan"
-format = '[ $symbol( $version) ]($style)'
-
-[php]
-symbol = ""
-style = "purple"
 format = '[ $symbol( $version) ]($style)'
 
 [java]
@@ -188,20 +185,13 @@ symbol = " "
 style = "red"
 format = '[ $symbol( $version) ]($style)'
 
-[kotlin]
-symbol = ""
-style = "purple"
-format = '[ $symbol( $version) ]($style)'
-
-[haskell]
-symbol = ""
-style = "purple"
-format = '[ $symbol( $version) ]($style)'
-
 [python]
 symbol = ""
 style = "yellow"
 format = '[ $symbol( $version) (\($virtualenv\)) ]($style)'
+detect_extensions = ["py"]
+detect_files = ["pyproject.toml", "requirements.txt"]
+detect_folders = []
 
 [custom.asm]
 detect_extensions = ['asm', 's']
@@ -218,11 +208,6 @@ format = '[ $symbol( $version) ]($style)'
 symbol = " "
 style = "red"
 format = '[ $symbol( $version) ]($style)'
-
-[docker_context]
-symbol = ""
-style = "blue"
-format = '[ $symbol( $context) ]($style)'
 
 [cmd_duration]
 min_time = 0 

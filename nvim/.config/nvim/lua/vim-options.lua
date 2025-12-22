@@ -21,7 +21,7 @@ vim.opt.termguicolors = true
 
 vim.filetype.add({
   extension = {
-    h = 'c',    -- Force .h to be C
-    hpp = 'cpp', -- Force .hpp to be C++ (usually default, but explicit is better)
+    h = "c", -- Force .h to be C
+    hpp = "cpp", -- Force .hpp to be C++ (usually default, but explicit is better)
   },
 })

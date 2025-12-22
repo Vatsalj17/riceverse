@@ -4,11 +4,11 @@
         "type": "file",
         "source": "~/.config/fastfetch/arch.txt",
         "color": {
-            "1": "34" // 💡 34 is the standard ANSI code for Blue.
+            "1": "34" // 34 is the ANSI code for Blue.
         },
         "height": 12,
         "padding": {
-            "top": 2,
+            "top": 1,
             "left": 3,
             "right": 4
         }
