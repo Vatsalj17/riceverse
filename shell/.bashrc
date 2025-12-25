@@ -11,6 +11,7 @@ alias rm='rm -Iv'
 alias objdump='objdump -M intel'
 alias gitbkp='$HOME/.config/hypr/scripts/backup.sh'
 alias runimg='qemu-system-x86_64 -enable-kvm -boot menu=on -drive file=Imageold.img -m 4G -cpu host -vga virtio -display sdl'
+alias gtop='sudo intel_gpu_top'
 # alias lfs='qemu-system-x86_64 -enable-kvm -drive file=host-lfs.img -m 4G -cpu host -vga virtio -display sdl -net nic -net user,hostfwd=tcp::2222-:22 -chardev socket,path=/tmp/qga.sock,server=on,wait=off,id=qga0 -device virtio-serial -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0'
 alias lfs='qemu-system-x86_64 \
   -enable-kvm \
@@ -32,7 +33,6 @@ alias localsrv='. ~/Codes/Python/Projects/local/.venv/bin/activate && python ~/C
 alias sstxt='. ~/Codes/Python/Scripts/imgtotxt/.venv/bin/activate && python ~/Codes/Python/Scripts/imgtotxt/main.py && deactivate'
 alias pysrc='. .venv/bin/activate'
 alias esp=". $HOME/esp/esp-idf/export.sh"
-alias code="nvim"
 alias glog="git log --graph --abbrev-commit --decorate --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white) - %an%C(reset)%C(auto)%d%C(reset)'"
 
 ###   exports   ###
@@ -89,7 +89,7 @@ fi
 
 # rm $HOME/ly-session.log 2> /dev/null
 
-if [[ "$TERM" == "xterm-kitty" || "$TERM" == "tmux-256color" || "$TERM" == "foot" ]]; then
+if [[ "$TERM" == "xterm-kitty" || "$TERM" == "tmux-256color" || "$TERM" == "foot" || "$TERM" == "xterm-256color" ]]; then
     eval "$(starship init bash)"
     alias heavy='export STARSHIP_CONFIG=~/.config/starship_heavy.toml'
     alias simple='unset STARSHIP_CONFIG'

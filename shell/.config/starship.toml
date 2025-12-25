@@ -12,15 +12,11 @@ $c\
 $custom\
 $golang\
 $nodejs\
-$php\
 $java\
-$kotlin\
-$haskell\
 $python\
 $shell\
 $rust\
 $lua\
-$docker_context\
 $cmd_duration\
 $status\
 $line_break$character"""
@@ -106,11 +102,8 @@ truncation_symbol = "…/"
 "hypr" = " "
 "nvim" = " "
 "dwm" = " "
-"kitty" = "󰄛 "
 "tmux" = " "
-"spotify" = "󰓇 "
 "minecraft" = "󰍳 "
-"windows" = " "
 "Assembly" = " "
 "C/" = " /"
 "C++" = " "
@@ -137,8 +130,6 @@ truncation_symbol = "…/"
 "Vedic" = "󰥳 "
 "Verilog" = "󰍛 "
 "Zig" = " "
-"Important" = " "
-"Screenshots" = "󰹑 "
 "Bliss" = "󰳩 "
 "Mashup" = "󰽰 "
 "Peace" = "󰔟 "
