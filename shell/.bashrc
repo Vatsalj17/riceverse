@@ -123,7 +123,7 @@ while2() {
 
 ls() {
     if command -v lsd >/dev/null; then
-        if [[ "$PWD" == "$HOME/Pictures"* ]] && command -v mcat >/dev/null; then
+        if [[ "$PWD" == "$HOME/Pictures"* && "$TERM" == "xterm-kitty" ]] && command -v mcat >/dev/null; then
             mcat ls "$@"
         else
             command lsd --color=auto "$@"

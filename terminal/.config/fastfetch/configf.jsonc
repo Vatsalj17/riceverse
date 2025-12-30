@@ -83,8 +83,7 @@
         },
         {
             "type": "disk",
-            "key": " ",
-            "path": "/"
+            "key": " "
         },
         // {
         //     "type": "break"

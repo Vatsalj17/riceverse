@@ -3,7 +3,6 @@ return {
   config = function()
     require("auto-save").setup({
       enabled = true,
-      debounce_delay = 1500,
       condition = function(buf)
         local fn = vim.fn
         local modifiable = fn.getbufvar(buf, "&modifiable") == 1
