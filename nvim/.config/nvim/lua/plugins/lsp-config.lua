@@ -1,11 +1,7 @@
--- Your lsp-config.lua file, fully migrated for Nvim 0.11+
-
 return {
-  -- Mason and mason-lspconfig remain the same
   {
     "williamboman/mason.nvim",
     config = function()
-      -- Add "stylua" here so Mason can install and manage it for you.
       require("mason").setup({
         ensure_installed = { "stylua" },
       })
@@ -96,7 +92,7 @@ return {
       vim.lsp.config("asm_lsp", {
         on_attach = on_attach,
         capabilities = capabilities,
-        cmd = { "asm-lsp" }, -- Assumes ~/.cargo/bin is in your system PATH
+        cmd = { "asm-lsp" }, -- Assumes ~/.cargo/bin is in system PATH
         filetypes = { "asm", "vmasm", "nasm", "s" },
         root_dir = vim.fs.dirname(vim.fs.find({ ".git", ".gitignore" }, { upward = true })[1]),
       })

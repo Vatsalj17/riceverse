@@ -24,7 +24,7 @@
       "7": "󰖟 ",
       "8": " ",
       "9": "󰆍 ",
-      "10": "󰈹 ",
+      "10": "󰈹 "
     },
     "persistent-workspaces": {
       "7": [],
@@ -46,8 +46,7 @@
       // Terminal
       "~": "  Terminal",
       "/": "  Terminal",
-      "zsh": "  Terminal",
-      "kitty": "  Terminal",
+      "Vatsal@ArchLinux:~": "  Terminal",
 
       // Browser
 
@@ -117,6 +116,9 @@
       "(.*)Spotify Premium": 
         "<span foreground='#a6e3a1'> </span> Spotify Premium",
 
+      "(.*)YouTube Music": 
+        "<span foreground='#ff0000'>󰐌 </span> YouTube Music",
+
       "OBS(.*)": 
         "<span foreground='#a6adc8'> </span> OBS Studio",
 
@@ -131,6 +133,7 @@
       "qView": "  qView",
 
       "(.*).jpg": "  $1.jpg",
+      "(.*).jpeg": "  $1.jpg",
       "(.*).png": "  $1.png",
       "(.*).svg": "  $1.svg",
 

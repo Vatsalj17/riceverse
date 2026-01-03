@@ -32,8 +32,9 @@ alias pgsql='/usr/pgadmin4/venv/bin/python /usr/pgadmin4/web/pgAdmin4.py'
 alias localsrv='. ~/Codes/Python/Projects/local/.venv/bin/activate && python ~/Codes/Python/Projects/local/main.py && deactivate'
 alias sstxt='. ~/Codes/Python/Scripts/imgtotxt/.venv/bin/activate && python ~/Codes/Python/Scripts/imgtotxt/main.py && deactivate'
 alias pysrc='. .venv/bin/activate'
-alias esp=". $HOME/esp/esp-idf/export.sh"
+alias esp=". ~/esp/esp-idf/export.sh"
 alias glog="git log --graph --abbrev-commit --decorate --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white) - %an%C(reset)%C(auto)%d%C(reset)'"
+alias code='nvim'
 
 ###   exports   ###
 PS1='[\u@\h \W]\$ '
@@ -82,9 +83,9 @@ fi
 
 ###   scripts   ###
 if [[ "$TERM" == "xterm-kitty" ]]; then
-    fastfetch --config $HOME/.config/fastfetch/configv.jsonc
+    fastfetch --config "$HOME/.config/fastfetch/configv.jsonc"
 elif [[ "$TERM" == "foot" ]]; then
-    fastfetch --config $HOME/.config/fastfetch/configf.jsonc
+    fastfetch --config "$HOME/.config/fastfetch/configf.jsonc"
 fi
 
 # rm $HOME/ly-session.log 2> /dev/null
@@ -97,13 +98,11 @@ fi
 
 if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
-elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
 fi
 
 play() {
     [[ $PWD == *Music* ]] || cd "$HOME/Music/Playlist" || return
-    ls | shuf | xargs -r mpv --vid=no
+    /bin/ls | shuf | xargs -r mpv --vid=no
 }
 
 rmspace() {
@@ -137,7 +136,7 @@ cd() {
     if [[ $1 =~ ^-[0-9]+$ ]]; then
         builtin cd "$(printf '../%.0s' $(seq 1 ${1#-}))" || return
     else
-        builtin cd "$@"
+        builtin cd "$@" || return
     fi
 }
 
