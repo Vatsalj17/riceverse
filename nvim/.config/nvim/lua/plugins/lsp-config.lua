@@ -59,7 +59,6 @@ return {
             "--background-index", -- 🛠 Index the project in the background
             "--clang-tidy", -- 🛠 Enable C linting
             "--completion-style=detailed",
-            "--header-insertion=never", -- 🛠 Prevents annoying auto-includes in C
           },
         },
         ["pyright"] = {
