@@ -10,24 +10,9 @@ alias grep='grep --color=auto'
 alias rm='rm -Iv'
 alias objdump='objdump -M intel'
 alias gitbkp='$HOME/.config/hypr/scripts/backup.sh'
-alias runimg='qemu-system-x86_64 -enable-kvm -boot menu=on -drive file=Imageold.img -m 4G -cpu host -vga virtio -display sdl'
 alias gtop='sudo intel_gpu_top'
-# alias lfs='qemu-system-x86_64 -enable-kvm -drive file=host-lfs.img -m 4G -cpu host -vga virtio -display sdl -net nic -net user,hostfwd=tcp::2222-:22 -chardev socket,path=/tmp/qga.sock,server=on,wait=off,id=qga0 -device virtio-serial -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0'
-alias lfs='qemu-system-x86_64 \
-  -enable-kvm \
-  -drive file=host-lfs.img \
-  -m 4G \
-  -cpu host \
-  -device virtio-gpu-pci,xres=1920,yres=1080 \
-  -display sdl,gl=on \
-  -net nic \
-  -net user,hostfwd=tcp::2222-:22 \
-  -chardev socket,path=/tmp/qga.sock,server=on,wait=off,id=qga0 \
-  -device virtio-serial \
-  -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0'
 alias open='xdg-open'
 alias todo='dooit'
-alias yt='hyprctl dispatch workspace 8 >/dev/null && /opt/brave-bin/brave --password-store=basic --enable-features=UseOzonePlatform --ozone-platform=wayland --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml'
 alias pgsql='/usr/pgadmin4/venv/bin/python /usr/pgadmin4/web/pgAdmin4.py'
 alias localsrv='. ~/Codes/Python/Projects/local/.venv/bin/activate && python ~/Codes/Python/Projects/local/main.py && deactivate'
 alias sstxt='. ~/Codes/Python/Scripts/imgtotxt/.venv/bin/activate && python ~/Codes/Python/Scripts/imgtotxt/main.py && deactivate'
@@ -35,13 +20,10 @@ alias pysrc='. .venv/bin/activate'
 alias esp=". ~/esp/esp-idf/export.sh"
 alias glog="git log --graph --abbrev-commit --decorate --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white) - %an%C(reset)%C(auto)%d%C(reset)'"
 alias code='nvim'
+alias updatemirrors='sudo reflector --country India,Singapore,Japan --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && sudo pacman -Syy'
 
 ###   exports   ###
 PS1='[\u@\h \W]\$ '
-export PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
-export PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
-export PERL_MB_OPT="--install_base \"$HOME/perl5\""
-export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 export EDITOR=nvim
 export VISUAL=nvim
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -59,21 +41,18 @@ export FZF_DEFAULT_OPTS=" \
 --color=border:#313244,label:#CDD6F4"
 export VEDIC_INSTALL="$HOME/.vedic"
 export PYENV_ROOT="$HOME/.pyenv"
-export ANDROID_HOME="$HOME/Android/sdk"
 export MANPAGER="nvim +Man!"
 export BAT_THEME="Catppuccin Mocha"
+export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
 path_add() {
     [[ -d $1 && ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH"
 }
 
-path_add /sbin
 path_add "$HOME/.cargo/bin"
 path_add "$HOME/.local/share/gem/ruby/3.4.0/bin"
 path_add "$VEDIC_INSTALL/bin"
 path_add "$PYENV_ROOT/bin"
-path_add "$ANDROID_HOME/cmdline-tools/latest/bin"
-path_add "$ANDROID_HOME/platform-tools"
 
 if [[ -f "$HOME/.env" ]]; then
     set -a
@@ -88,13 +67,12 @@ elif [[ "$TERM" == "foot" ]]; then
     fastfetch --config "$HOME/.config/fastfetch/configf.jsonc"
 fi
 
-# rm $HOME/ly-session.log 2> /dev/null
-
-if [[ "$TERM" == "xterm-kitty" || "$TERM" == "tmux-256color" || "$TERM" == "foot" || "$TERM" == "xterm-256color" ]]; then
+case "$TERM" in xterm-kitty|tmux-256color|foot|xterm-256color)
     eval "$(starship init bash)"
     alias heavy='export STARSHIP_CONFIG=~/.config/starship_heavy.toml'
     alias simple='unset STARSHIP_CONFIG'
-fi
+    ;;
+esac
 
 if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -111,15 +89,6 @@ rmspace() {
     done
 }
 
-while2() {
-    last_command="$(fc -ln -1)"
-    if [[ -z "$last_command" ]]; then
-        echo "No command to loop"
-        return 1
-    fi
-    eval "while true; do $last_command; done"
-}
-
 ls() {
     if command -v lsd >/dev/null; then
         if [[ "$PWD" == "$HOME/Pictures"* && "$TERM" == "xterm-kitty" ]] && command -v mcat >/dev/null; then
@@ -134,7 +103,12 @@ ls() {
 
 cd() {
     if [[ $1 =~ ^-[0-9]+$ ]]; then
-        builtin cd "$(printf '../%.0s' $(seq 1 ${1#-}))" || return
+        local n=${1#-}
+        local path=
+        for ((i=0; i<n; i++)); do
+            path+="../"
+        done
+        builtin cd "$path" || return
     else
         builtin cd "$@" || return
     fi
@@ -161,17 +135,43 @@ codesnap() {
         --background "#1e1e2e"
 }
 
+savepow() {
+    echo "Initiating Power Saver..."
+    sudo bootctl set-default lts.conf
+    echo "[+] Bootloader target set to: LTS Kernel"
+    echo "1" | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo > /dev/null
+    echo "[+] Intel Turbo Boost: DISABLED"
+    powerprofilesctl set power-saver
+    echo "[+] Platform Profile: Power-Saver"
+    echo ">> Survival Mode"
+}
+
+resetpow() {
+    echo "Restoring Power Mode..."
+    sudo bootctl set-default zen.conf
+    echo "[+] Bootloader target set to: Zen Kernel"
+    echo "0" | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo > /dev/null
+    echo "[+] Intel Turbo Boost: ENABLED"
+    powerprofilesctl set balanced
+    echo "[+] Platform Profile: Balanced"
+    echo ">> System restored to normal"
+}
+
 __fzf_history_search() {
     local selected
-    selected=$(HISTTIMEFORMAT= history | fzf +s --tac --query "$READLINE_LINE" | sed -E 's/ *[0-9]+ +//')
-    if [ -n "$selected" ]; then
+    selected=$(
+        builtin history \
+        | sed 's/^ *[0-9]\+ *//' \
+        | fzf --tac \
+              --query "$READLINE_LINE" \
+              --height 40% \
+              --border
+    )
+    [[ -n $selected ]] && {
         READLINE_LINE="$selected"
         READLINE_POINT=${#READLINE_LINE}
-    fi
+    }
 }
 
 ###   binds   ###
 bind -x '"\C-r": __fzf_history_search'
-
-###   sources   ###
-source "$HOME/.cargo/env"

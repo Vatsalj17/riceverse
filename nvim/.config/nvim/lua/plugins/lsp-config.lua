@@ -91,9 +91,19 @@ return {
       vim.lsp.config("asm_lsp", {
         on_attach = on_attach,
         capabilities = capabilities,
-        cmd = { "asm-lsp" }, -- Assumes ~/.cargo/bin is in system PATH
+        cmd = { "asm-lsp" },
         filetypes = { "asm", "vmasm", "nasm", "s" },
-        root_dir = vim.fs.dirname(vim.fs.find({ ".git", ".gitignore" }, { upward = true })[1]),
+        root_dir = function(bufnr, on_dir)
+          local fname = vim.api.nvim_buf_get_name(bufnr)
+          local toml = vim.fs.find(
+            ".asm-lsp.toml",
+            { upward = true, path = fname }
+          )[1]
+          if toml then
+            on_dir(vim.fs.dirname(toml))
+          end
+          -- do nothing if not found
+        end,
       })
       vim.lsp.enable("asm_lsp")
 

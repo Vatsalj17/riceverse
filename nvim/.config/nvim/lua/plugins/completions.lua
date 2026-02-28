@@ -34,15 +34,15 @@ return {
         mapping = cmp.mapping.preset.insert({
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-p>"] = cmp.mapping.complete(),
+          -- ["<C-p>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<C-j>"] = function(fallback)
+          ["<C-n>"] = function(fallback)
             local luasnip = require("luasnip")
             if cmp.visible() then
               cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
+            elseif luasnip.jumpable() then
+              luasnip.jump()
             else
               fallback()
             end
@@ -60,7 +60,7 @@ return {
             end
           end,
 
-          ["<C-k>"] = function(fallback)
+          ["<C-p>"] = function(fallback)
             local luasnip = require("luasnip")
             if cmp.visible() then
               cmp.select_prev_item()
