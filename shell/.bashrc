@@ -24,6 +24,9 @@ alias updatemirrors='sudo reflector --country India,Singapore,Japan --latest 20 
 
 ###   exports   ###
 PS1='[\u@\h \W]\$ '
+HISTSIZE=20000
+HISTFILESIZE=20000
+PROMPT_COMMAND="history -a${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 export EDITOR=nvim
 export VISUAL=nvim
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -44,6 +47,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 export MANPAGER="nvim +Man!"
 export BAT_THEME="Catppuccin Mocha"
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
+export STARSHIP_LOG=error
 
 path_add() {
     [[ -d $1 && ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH"
@@ -74,7 +78,7 @@ case "$TERM" in xterm-kitty|tmux-256color|foot|xterm-256color)
     ;;
 esac
 
-if [ -f /usr/share/bash-completion/bash_completion ]; then
+if [[ $PS1 && -r /usr/share/bash-completion/bash_completion ]]; then
     . /usr/share/bash-completion/bash_completion
 fi
 
@@ -162,7 +166,10 @@ __fzf_history_search() {
     selected=$(
         builtin history \
         | sed 's/^ *[0-9]\+ *//' \
-        | fzf --tac \
+        | tac \
+        | awk '!seen[$0]++' \
+        | fzf --no-sort \
+              --scheme=history \
               --query "$READLINE_LINE" \
               --height 40% \
               --border
@@ -173,5 +180,5 @@ __fzf_history_search() {
     }
 }
 
-###   binds   ###
 bind -x '"\C-r": __fzf_history_search'
+shopt -s histappend

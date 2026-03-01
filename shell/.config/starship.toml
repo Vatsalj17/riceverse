@@ -1,6 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-scan_timeout = 500
+scan_timeout = 50
 
 format = """
 $os\
@@ -9,12 +9,9 @@ $directory\
 $git_branch\
 $git_status\
 $c\
-$custom\
 $golang\
-$nodejs\
 $java\
 $python\
-$shell\
 $rust\
 $lua\
 $cmd_duration\
@@ -56,25 +53,7 @@ disabled = false
 style = "bold blue"
 
 [os.symbols]
-Windows = "󰍲"
-Ubuntu = "󰕈"
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
-Macos = ""
-Manjaro = ""
-Linux = "󰌽"
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
 Arch = "󰣇"
-Artix = "󰣇"
-CentOS = ""
-Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
 
 [username]
 show_always = true
@@ -88,7 +67,6 @@ format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
-# Your heavy substitution list - kept intact!
 [directory.substitutions]
 "Documents" = "󰈙 "
 "Downloads" = " "
@@ -105,12 +83,9 @@ truncation_symbol = "…/"
 "tmux" = " "
 "minecraft" = "󰍳 "
 "Assembly" = " "
-"C/" = " /"
-"C++" = " "
 "C#" = "󰌛 "
 "Crystal" = " "
 "Dart" = " "
-"D/" = " /"
 "Fortran" = "󱈚 "
 "Go" = " "
 "Haskell" = " "
@@ -118,14 +93,12 @@ truncation_symbol = "…/"
 "Julia" = " "
 "Kotlin" = " "
 "Lua" = " "
-"mips" = "󰘚 "
 "Nim" = " "
 "Perl" = " "
 "Php" = " "
 "Python" = " "
 "Ruby" = " "
 "Rust" = " "
-"Scripting" = " "
 "Swift" = " "
 "Vedic" = "󰥳 "
 "Verilog" = "󰍛 "
@@ -141,28 +114,16 @@ truncation_symbol = "…/"
 symbol = ""
 style = "bold purple"
 format = '[ $symbol $branch ]($style)'
+only_attached = true
+truncation_length = 30
 
 [git_status]
-ignore_submodules = true
 style = "bold red"
 format = '[$all_status$ahead_behind ]($style)'
-
-[nodejs]
-symbol = ""
-style = "green"
-format = '[ $symbol ($version) ]($style)'
-detect_files = ["package.json"]
-detect_folders = []
-detect_extensions = []
+ignore_submodules = true
 
 [c]
 symbol = " "
-style = "blue"
-format = '[ $symbol($version) ]($style)'
-
-[custom.cpp]
-detect_extensions = ['cpp']
-symbol = " "
 style = "blue"
 format = '[ $symbol($version) ]($style)'
 
@@ -178,17 +139,11 @@ format = '[ $symbol( $version) ]($style)'
 
 [python]
 symbol = ""
-style = "yellow"
+style = "sapphire"
 format = '[ $symbol( $version) (\($virtualenv\)) ]($style)'
 detect_extensions = ["py"]
 detect_files = ["pyproject.toml", "requirements.txt"]
 detect_folders = []
-
-[custom.asm]
-detect_extensions = ['asm', 's']
-symbol = " "
-style = "red"
-format = '[ $symbol( $version) ]($style)'
 
 [lua]
 symbol = " "
@@ -201,16 +156,10 @@ style = "red"
 format = '[ $symbol( $version) ]($style)'
 
 [cmd_duration]
-min_time = 0 
+min_time = 0
 style = "bold yellow"
 format = "[ took $duration ]($style)"
 show_milliseconds = true
-
-[time]
-disabled = true # Minimal often means no clock, set to false to enable
-time_format = "%R"
-style = "bold overlay0"
-format = '[  $time ]($style)'
 
 [status]
 disabled = false
@@ -225,7 +174,3 @@ disabled = false
 disabled = false
 success_symbol = '[❯](bold green)'
 error_symbol = '[❯](bold red)'
-vimcmd_symbol = '[❮](bold green)'
-vimcmd_replace_one_symbol = '[❮](bold orange)'
-vimcmd_replace_symbol = '[❮](bold orange)'
-vimcmd_visual_symbol = '[❮](bold lavender)'
