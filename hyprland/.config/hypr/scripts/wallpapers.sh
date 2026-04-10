@@ -72,12 +72,12 @@ if [[ -n "$SELECTED_WALLPAPER" ]]; then
         pgrep -x hyprpaper >/dev/null && pkill -x hyprpaper
         pgrep -x mpvpaper >/dev/null && pkill -x mpvpaper
         
-        # Start swww daemon if not running
-        pgrep -x swww-daemon >/dev/null || swww-daemon &
+        # Start awww daemon if not running
+        pgrep -x awww-daemon >/dev/null || awww-daemon &
         
         # Set the wallpaper
-        swww img "$WALLPAPER_PATH" --transition-type any
-        swww img "$WALLPAPER_PATH" --transition-type any
+        awww img "$WALLPAPER_PATH" --transition-type any
+        awww img "$WALLPAPER_PATH" --transition-type any
         
         echo "Wallpaper set to: $ACTUAL_FILENAME"
     fi

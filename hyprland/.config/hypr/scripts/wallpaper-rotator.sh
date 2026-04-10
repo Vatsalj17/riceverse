@@ -10,10 +10,10 @@ echo "[Init] Killing interfering wallpaper daemons..."
 pkill -x hyprpaper 2>/dev/null
 pkill -x mpvpaper 2>/dev/null
 
-echo "[Init] Ensuring swww-daemon is running..."
-pgrep -x swww-daemon >/dev/null || swww-daemon &
-until pgrep -x swww-daemon >/dev/null; do sleep 0.1; done
-echo "[Init] swww-daemon is running. Starting main loop..."
+echo "[Init] Ensuring awww-daemon is running..."
+pgrep -x awww-daemon >/dev/null || awww-daemon &
+until pgrep -x awww-daemon >/dev/null; do sleep 0.1; done
+echo "[Init] awww-daemon is running. Starting main loop..."
 
 # --- Main Loop ---
 while true; do
@@ -39,7 +39,7 @@ while true; do
         if [ -s "$CACHE_FILE" ]; then
             SELECTED_WALLPAPER=$(shuf -n 1 "$CACHE_FILE")
             echo "[Loop] Setting wallpaper to: $SELECTED_WALLPAPER"
-            swww img "$SELECTED_WALLPAPER" --transition-type any
+            awww img "$SELECTED_WALLPAPER" --transition-type any
         else
             echo "[Loop] Warning: Wallpaper cache is empty. Skipping."
         fi

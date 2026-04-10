@@ -7,7 +7,7 @@ SELECTED_WALLPAPER=$(ls "$WALLPAPER_DIR" | wofi --dmenu --width 600 --height 400
 if [ -n "$SELECTED_WALLPAPER" ]; then
 	pgrep -x hyprpaper >/dev/null && pkill -x hyprpaper
 	pgrep -x mpvpaper >/dev/null && pkill -x mpvpaper
-    pgrep -x swww-daemon >/dev/null || swww-daemon &
-	swww img "$WALLPAPER_DIR/$SELECTED_WALLPAPER" --transition-type any
-	swww img "$WALLPAPER_DIR/$SELECTED_WALLPAPER" --transition-type any
+    pgrep -x awww-daemon >/dev/null || awww-daemon &
+	awww img "$WALLPAPER_DIR/$SELECTED_WALLPAPER" --transition-type any
+	awww img "$WALLPAPER_DIR/$SELECTED_WALLPAPER" --transition-type any
 fi
