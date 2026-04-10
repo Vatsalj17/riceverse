@@ -6,9 +6,11 @@
 
 ###   aliases   ###
 alias :q='exit'
-alias grep='grep --color=auto'
+alias grep='grep --color=always'
 alias rm='rm -Iv'
-alias objdump='objdump -M intel'
+alias objdump='objdump -M intel --disassembler-color=on'
+alias xxd='xxd -R always'
+alias less='less -R'
 alias gitbkp='$HOME/.config/hypr/scripts/backup.sh'
 alias gtop='sudo intel_gpu_top'
 alias open='xdg-open'
@@ -48,6 +50,7 @@ export MANPAGER="nvim +Man!"
 export BAT_THEME="Catppuccin Mocha"
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 export STARSHIP_LOG=error
+export YDOTOOL_SOCKET="$XDG_RUNTIME_DIR/ydotool.socket"
 
 path_add() {
     [[ -d $1 && ":$PATH:" != *":$1:"* ]] && PATH="$1:$PATH"
@@ -98,7 +101,7 @@ ls() {
         if [[ "$PWD" == "$HOME/Pictures"* && "$TERM" == "xterm-kitty" ]] && command -v mcat >/dev/null; then
             mcat ls "$@"
         else
-            command lsd --color=auto "$@"
+            command lsd --color=always "$@"
         fi
     else
         command ls --color=auto "$@"
