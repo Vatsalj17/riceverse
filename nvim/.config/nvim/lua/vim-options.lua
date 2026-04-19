@@ -4,7 +4,7 @@ vim.opt.expandtab = true
 vim.opt.softtabstop = 4
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "html", "css", "javascript", "typescript", "lua", "*.v" },
+  pattern = { "html", "css", "javascript", "typescript", "lua", "verilog" },
   callback = function()
     vim.opt_local.tabstop = 2
     vim.opt_local.shiftwidth = 2
@@ -21,7 +21,13 @@ vim.opt.termguicolors = true
 
 vim.filetype.add({
   extension = {
-    h = "c", -- Force .h to be C
-    hpp = "cpp", -- Force .hpp to be C++ (usually default, but explicit is better)
+    h = "c", -- force .h to be c
+    hpp = "cpp", -- force .hpp to be c++ (usually default, but explicit is better)
   },
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function(args)
+    pcall(vim.treesitter.start, args.buf)
+  end,
 })

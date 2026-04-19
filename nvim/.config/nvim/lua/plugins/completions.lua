@@ -79,6 +79,9 @@ return {
           { name = "buffer" },
         }),
       })
+      -- debug.sethook(function()
+      --   print(debug.traceback("cmp.setup called!", 2))
+      -- end, "c")
 
       -- 🔍 Setup for search (/)
       cmp.setup.cmdline("/", {
@@ -98,6 +101,9 @@ return {
         }),
       })
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+      -- vim.defer_fn(function()
+      --   print(vim.inspect(require("cmp").get_config().window.completion.border))
+      -- end, 2000)
     end,
   },
 }

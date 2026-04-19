@@ -27,6 +27,8 @@ else
   vim.opt.rtp:prepend(lazypath)
   vim.g.loaded_perl_provider = 0
 
+  vim.o.winborder = "rounded"
+
   -- vim.g.mapleader = " "
   -- vim.g.maplocalleader = "\\"
 

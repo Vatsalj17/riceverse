@@ -5,8 +5,6 @@ return {
   opts = {
     symbol = "│",
     draw = {
-      -- Delay (in ms) between drawing steps
-      -- Increase this number to slow down the animation
       delay = 50,
     },
     options = {
@@ -16,11 +14,29 @@ return {
   config = function(_, opts)
     require("mini.indentscope").setup(opts)
 
-    -- Keep your existing exclusions
+    local allowed_ft = {
+      c = true,
+      cpp = true,
+      java = true,
+      lua = true,
+      bash = true,
+      sh = true,
+      javascript = true,
+      typescript = true,
+      rust = true,
+      html = true,
+    }
+
     vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "help", "alpha", "dashboard", "neo-tree", "lazy", "mason" },
-      callback = function()
-        vim.b.miniindentscope_disable = true
+      pattern = "*",
+      callback = function(args)
+        local current_filetype = vim.bo[args.buf].filetype
+
+        if not allowed_ft[current_filetype] then
+          vim.b[args.buf].miniindentscope_disable = true
+        else
+          vim.b[args.buf].miniindentscope_disable = false
+        end
       end,
     })
   end,

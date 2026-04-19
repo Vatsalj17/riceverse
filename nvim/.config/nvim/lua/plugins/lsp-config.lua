@@ -39,7 +39,8 @@ return {
         -- end
       end
 
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
 
       local servers = require("mason-lspconfig").get_installed_servers()
 
@@ -136,11 +137,11 @@ return {
       vim.keymap.set("n", "<leader>dt", function()
         diagnostics_hidden = not diagnostics_hidden
         if diagnostics_hidden then
-          vim.diagnostic.disable(0)
-          print("🔕 Diagnostics hidden")
+          vim.diagnostic.enable(false, { bufnr = 0 })  -- to hide
+          print("Diagnostics hidden")
         else
-          vim.diagnostic.enable(0)
-          print("🔔 Diagnostics shown")
+          vim.diagnostic.enable(true,  { bufnr = 0 })  -- to show
+          print("Diagnostics shown")
         end
       end, { desc = "Toggle diagnostics display" })
     end,
