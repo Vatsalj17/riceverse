@@ -1,10 +1,18 @@
 #!/bin/bash
 
+BATTERY=""
+for bat in /sys/class/power_supply/BAT* /sys/class/power_supply/CMB*; do
+    if [ -e "$bat/capacity" ]; then
+        BATTERY=$(basename "$bat")
+        break
+    fi
+done
+
 # Get the current battery percentage
-battery_percentage=$(cat /sys/class/power_supply/BAT0/capacity)
+battery_percentage=$(cat /sys/class/power_supply/"$BATTERY"/capacity)
 
 # Get the battery status (Charging or Discharging)
-battery_status=$(cat /sys/class/power_supply/BAT0/status)
+battery_status=$(cat /sys/class/power_supply/"$BATTERY"/status)
 
 # Define the battery icons for each 10% segment
 battery_icons=("󰂃" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰁹")

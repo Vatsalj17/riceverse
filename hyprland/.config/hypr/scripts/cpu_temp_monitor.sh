@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MAX_TEMP=80  # Set temperature threshold
-NOTIFY_INTERVAL=60  # Time between warnings
+NOTIFY_INTERVAL=120  # Time between warnings
 
 while true; do
     # Extract CPU temperature
@@ -20,5 +20,5 @@ while true; do
         sleep $NOTIFY_INTERVAL  # Prevent spamming
     fi
 
-    sleep 5  # Check every 5 seconds
+    sleep 15  # Check every 15 seconds
 done

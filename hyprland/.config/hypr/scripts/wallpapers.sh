@@ -2,83 +2,55 @@
 
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
 THUMB_DIR="$HOME/.cache/wallpaper_thumbs"
+ROFI_THEME="$HOME/.config/rofi/wallpaper.rasi"
 
-# Create thumbnail directory if it doesn't exist
 mkdir -p "$THUMB_DIR"
 
-# Function to generate thumbnail
 generate_thumbnail() {
     local wallpaper="$1"
     local filename=$(basename "$wallpaper")
     local thumb_path="$THUMB_DIR/${filename%.*}.png"
-    
+
     if [[ ! -f "$thumb_path" ]]; then
-        # Generate thumbnail using imagemagick
-        convert "$wallpaper" -resize 200x150^ -gravity center -extent 200x150 "$thumb_path" 2>/dev/null
-        
-        # Fallback to ffmpeg if imagemagick fails
+        convert "$wallpaper" -resize 300x200^ -gravity center -extent 300x200 "$thumb_path" 2>/dev/null
         if [[ ! -f "$thumb_path" ]]; then
-            ffmpeg -i "$wallpaper" -vf "scale=200:150" -vframes 1 "$thumb_path" 2>/dev/null
+            ffmpeg -i "$wallpaper" -vf "scale=300:200:force_original_aspect_ratio=increase,crop=300:200" -vframes 1 "$thumb_path" 2>/dev/null
         fi
     fi
-    
-    if [[ -f "$thumb_path" ]]; then
-        echo "$thumb_path"
-    fi
+    echo "$thumb_path"
 }
 
-# Check if rofi is installed
-if ! command -v rofi >/dev/null 2>&1; then
-    echo "Error: rofi is not installed. Install it with: sudo pacman -S rofi"
-    echo "Rofi is needed for image preview functionality."
-    exit 1
-fi
-
-# Generate thumbnails and create rofi entries
 entries=""
-declare -A thumb_to_file
+declare -A name_to_path
 
 for wallpaper in "$WALLPAPER_DIR"/*; do
-    if [[ -f "$wallpaper" ]]; then
-        filename=$(basename "$wallpaper")
-        name_without_ext="${filename%.*}"
-        
-        thumb_path=$(generate_thumbnail "$wallpaper")
-        
-        if [[ -n "$thumb_path" && -f "$thumb_path" ]]; then
-            entries+="$name_without_ext\0icon\x1f$thumb_path\n"
-            thumb_to_file["$name_without_ext"]="$filename"
-        else
-            entries+="$name_without_ext\n"
-            thumb_to_file["$name_without_ext"]="$filename"
-        fi
+    [[ -f "$wallpaper" ]] || continue
+    filename=$(basename "$wallpaper")
+    name="${filename%.*}"
+    thumb=$(generate_thumbnail "$wallpaper")
+
+    if [[ -f "$thumb" ]]; then
+        entries+="${name}\0icon\x1f${thumb}\n"
+    else
+        entries+="${name}\n"
     fi
+    name_to_path["$name"]="$wallpaper"
 done
 
-# Create rofi theme file
-ROFI_THEME="$HOME/.config/rofi/wallpaper.rasi"
-mkdir -p "$(dirname "$ROFI_THEME")"
+SELECTED=$(echo -e "$entries" | rofi \
+    -dmenu \
+    -i \
+    -p "󰸉  Search" \
+    -theme "$ROFI_THEME" \
+    -show-icons)
 
-# Display rofi menu with image previews
-SELECTED_WALLPAPER=$(echo -e "$entries" | rofi -dmenu -i -p "Select Wallpaper" -theme "$ROFI_THEME" -show-icons)
+[[ -z "$SELECTED" ]] && exit 0
 
-if [[ -n "$SELECTED_WALLPAPER" ]]; then
-    ACTUAL_FILENAME="${thumb_to_file["$SELECTED_WALLPAPER"]}"
-    
-    if [[ -n "$ACTUAL_FILENAME" ]]; then
-        WALLPAPER_PATH="$WALLPAPER_DIR/$ACTUAL_FILENAME"
-        
-        # Kill existing wallpaper processes
-        pgrep -x hyprpaper >/dev/null && pkill -x hyprpaper
-        pgrep -x mpvpaper >/dev/null && pkill -x mpvpaper
-        
-        # Start awww daemon if not running
-        pgrep -x awww-daemon >/dev/null || awww-daemon &
-        
-        # Set the wallpaper
-        awww img "$WALLPAPER_PATH" --transition-type any
-        awww img "$WALLPAPER_PATH" --transition-type any
-        
-        echo "Wallpaper set to: $ACTUAL_FILENAME"
-    fi
-fi
+WALLPAPER_PATH="${name_to_path[$SELECTED]}"
+[[ -z "$WALLPAPER_PATH" ]] && exit 0
+
+pkill -x hyprpaper 2>/dev/null
+pkill -x mpvpaper 2>/dev/null
+pgrep -x awww-daemon >/dev/null || awww-daemon &
+awww img "$WALLPAPER_PATH" --transition-type any
+echo "Wallpaper set: $SELECTED"

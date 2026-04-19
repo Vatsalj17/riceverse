@@ -1,58 +1,51 @@
 @import "catppuccin-mocha"
 
 * {
+    font: "JetBrains Mono Nerd Font 12";
     background-color: transparent;
     text-color: @text;
-    font: "JetBrains Mono Nerd Font 10";
 }
 
 window {
+    width: 600px;
     background-color: rgba(30, 30, 46, 0.85);
     border: 2px solid;
     border-color: @mauve;
-    border-radius: 16px;
-    width: 980px;
-    height: 580px;
-    padding: 20px;
+    border-radius: 12px;
     location: center;
+    padding: 12px;
 }
 
 mainbox {
-    background-color: transparent;
-    orientation: vertical;
-    spacing: 14px;
+    spacing: 8px;
     children: [ inputbar, listview ];
 }
 
 inputbar {
     background-color: @surface0;
-    border-radius: 10px;
-    padding: 10px 14px;
-    spacing: 10px;
+    border-radius: 8px;
+    padding: 8px 12px;
+    spacing: 8px;
     children: [ prompt, entry ];
 }
 
 prompt {
-    background-color: transparent;
     text-color: @mauve;
-    font: "JetBrains Mono Nerd Font Bold 11";
 }
 
 entry {
-    background-color: transparent;
     text-color: @text;
-    placeholder: "Search wallpapers...";
+    placeholder: "Search clipboard...";
     placeholder-color: @overlay0;
 }
 
 listview {
     background-color: transparent;
-    columns: 4;
-    lines: 2;
-    spacing: 12px;
+    columns: 1;
+    lines: 8;
+    spacing: 4px;
     scrollbar: true;
     fixed-height: true;
-    cycle: true;
 }
 
 scrollbar {
@@ -65,12 +58,11 @@ scrollbar {
 }
 
 element {
-    background-color: @surface0;
-    border-radius: 12px;
-    padding: 8px;
-    orientation: vertical;
+    background-color: transparent;
+    border-radius: 8px;
+    padding: 8px 12px;
     spacing: 8px;
-    cursor: pointer;
+    children: [ element-icon, element-text ];
 }
 
 element normal.normal,
@@ -79,27 +71,20 @@ element normal.active,
 element alternate.normal,
 element alternate.urgent,
 element alternate.active {
-    background-color: @surface0;
-    text-color: @subtext1;
+    background-color: transparent;
+    text-color: @text;
 }
 
 element selected.normal {
     background-color: @surface1;
-    border: 2px solid;
+    border: 1px solid;
     border-color: @mauve;
     text-color: @text;
-}
-
-element-icon {
-    size: 168px;
-    horizontal-align: 0.5;
-    border-radius: 8px;
 }
 
 element-text {
     background-color: transparent;
     text-color: inherit;
-    horizontal-align: 0.5;
-    font: "JetBrains Mono Nerd Font 9";
-    str: "test";
+    vertical-align: 0.5;
+    highlight: bold #cba6f7;
 }

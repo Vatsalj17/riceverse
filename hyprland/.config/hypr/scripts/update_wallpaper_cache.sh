@@ -10,7 +10,7 @@ CACHE_FILE="$HOME/.cache/wallpaper_list.txt"
 mkdir -p "$THUMB_DIR"
 
 # Clear the old wallpaper list file before regenerating
-> "$CACHE_FILE"
+true > "$CACHE_FILE"
 
 echo "Starting wallpaper cache update..."
 echo "  - List file: $CACHE_FILE"

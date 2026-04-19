@@ -81,7 +81,7 @@ The repository is structured to separate configuration logic (Payloads) from ins
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Vatsalj17/riceverse.git ~/.dotfiles
+git clone https://github.com/vatsalj17/riceverse.git ~/.dotfiles
 cd ~/.dotfiles
 ```
 
@@ -160,4 +160,4 @@ The workflow is keyboard-centric, utilizing `Super` (Windows Key) and Vim motion
 
 ---
 
-*Maintained by [Vatsal Jaiswal](https://github.com/Vatsalj17)*
+*Maintained by [Vatsal Jaiswal](https://github.com/vatsalj17)*

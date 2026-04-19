@@ -1,0 +1,86 @@
+* {
+    background-color: transparent;
+    text-color: #ffffff;
+    font: "Roboto Medium 5";
+}
+
+window {
+    background-color: rgba(0,0,0,0.7);
+    border: 2px;
+    border-color: rgba(147, 153, 178, 1);
+    border-radius: 10px;
+    width: 800px;
+    height: 600px;
+    padding: 15px;
+}
+
+inputbar {
+    background-color: rgba(200,200,200,0.3);
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color: grey;
+    font: "Roboto Medium 1";
+    padding: 5px;
+}
+
+entry {
+    background-color: transparent;
+    text-color: grey;
+    font: "Roboto Medium 20";
+    placeholder: "";
+    placeholder-color: grey;
+}
+
+element selected {
+    color: rgb(200,200,200);
+}
+
+listview {
+    background-color: transparent;
+    columns: 3;
+    lines: 3;
+    spacing: 5px;
+    cycle: true;
+    dynamic: true;
+    layout: vertical;
+}
+
+element {
+    background-color: transparent;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    orientation: vertical;
+    spacing: 5px;
+}
+
+element selected {
+    background-color: rgba(144,205,250,0.7); /* Pick one solid color */
+    color: #333333;
+}
+
+element-icon {
+    size: 120px;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    border-radius: 5px;
+    border: 1px;
+    border-color: rgba(147, 153, 178, 0.5);
+}
+
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    margin: 5px 0px 0px 0px;
+    font: "Roboto Medium 12";
+}
+
+element-text selected {
+    text-color: #333333;
+}

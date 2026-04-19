@@ -1,11 +1,9 @@
 #!/bin/bash
 
-# --- Configuration ---
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
 CACHE_FILE="$HOME/.cache/wallpaper_list.txt"
-SLEEP_DURATION=120 # 2 minutes
+SLEEP_DURATION=120
 
-# --- Initial Setup (Run Once) ---
 echo "[Init] Killing interfering wallpaper daemons..."
 pkill -x hyprpaper 2>/dev/null
 pkill -x mpvpaper 2>/dev/null
@@ -15,41 +13,34 @@ pgrep -x awww-daemon >/dev/null || awww-daemon &
 until pgrep -x awww-daemon >/dev/null; do sleep 0.1; done
 echo "[Init] awww-daemon is running. Starting main loop..."
 
-# --- Main Loop ---
 while true; do
-    # Get the *first* battery device we can find
-    BATTERY_DEVICE=$(upower -e | grep 'BAT' | head -n 1)
-
-    if [ -n "$BATTERY_DEVICE" ]; then
-        # Get its state using your script's logic
-        STATE=$(upower -i "$BATTERY_DEVICE" | grep "state" | awk '{print $2}')
-    else
-        # Fallback: No battery found (maybe a desktop?)
-        # We'll assume "plugged in"
-        STATE="fully-charged"
+    # If live wallpaper is running, skip rotation entirely
+    if pgrep -x mpvpaper >/dev/null; then
+        echo "[Loop] mpvpaper is active. Skipping rotation."
+        sleep "$SLEEP_DURATION"
+        continue
     fi
 
-    # Check if we are in a non-discharging state
-    if [[ "$STATE" == "charging" || "$STATE" == "fully-charged" || "$STATE" == "pending-charge" ]]; then
-        # --- System is PLUGGED IN (or full) ---
-        echo "[Loop] Power state is '$STATE'. Changing wallpaper."
-        SLEEP_DURATION=120
-
-        # Select and set wallpaper
-        if [ -s "$CACHE_FILE" ]; then
-            SELECTED_WALLPAPER=$(shuf -n 1 "$CACHE_FILE")
-            echo "[Loop] Setting wallpaper to: $SELECTED_WALLPAPER"
-            awww img "$SELECTED_WALLPAPER" --transition-type any
-        else
-            echo "[Loop] Warning: Wallpaper cache is empty. Skipping."
-        fi
-    else
-        # --- System is ON BATTERY ---
-        echo "[Loop] Power state is '$STATE'. Skipping wallpaper change."
-        SLEEP_DURATION=600 # 10 minutes
+    # Ensure awww-daemon is still running (it might have crashed)
+    if ! pgrep -x awww-daemon >/dev/null; then
+        echo "[Loop] awww-daemon died, restarting..."
+        awww-daemon &
+        until pgrep -x awww-daemon >/dev/null; do sleep 0.1; done
     fi
 
-    # Wait for the next cycle
-    echo "[Loop] Sleeping for $SLEEP_DURATION seconds..."
+    # Rebuild cache if stale
+    if [ ! -s "$CACHE_FILE" ] || [ -n "$(find "$WALLPAPER_DIR" -newer "$CACHE_FILE" -type f 2>/dev/null)" ]; then
+        echo "[Loop] Cache stale or missing, rebuilding..."
+        ~/.config/hypr/scripts/update_wallpaper_cache.sh
+    fi
+
+    if [ -s "$CACHE_FILE" ]; then
+        SELECTED_WALLPAPER=$(shuf -n 1 "$CACHE_FILE")
+        echo "[Loop] Setting wallpaper: $SELECTED_WALLPAPER"
+        awww img "$SELECTED_WALLPAPER" --transition-type any
+    else
+        echo "[Loop] Warning: Wallpaper cache is empty. Skipping."
+    fi
+
     sleep "$SLEEP_DURATION"
 done

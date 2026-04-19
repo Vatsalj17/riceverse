@@ -23,10 +23,8 @@ OFFLINE_ICON="󰤮 "
 
 # --- FUNCTIONS ---
 
-# Check for internet connectivity
 check_internet() {
-    # Try multiple reliable services with a short timeout
-    if ping -c 1 -W 1 1.1.1.1 >/dev/null 2>&1 || ping -c 1 -W 1 8.8.8.8 >/dev/null 2>&1; then
+    if ip route get 1.1.1.1 >/dev/null 2>&1; then
         return 0
     else
         return 1

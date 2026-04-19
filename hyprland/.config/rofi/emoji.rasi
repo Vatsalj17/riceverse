@@ -1,0 +1,85 @@
+@import "catppuccin-mocha"
+
+* {
+    font: "JetBrains Mono Nerd Font 12";
+    background-color: transparent;
+    text-color: @text;
+}
+
+window {
+    width: 520px;
+    background-color: rgba(30, 30, 46, 0.50);
+    border: 2px solid;
+    border-color: @mauve;
+    border-radius: 12px;
+    location: center;
+    padding: 12px;
+}
+
+mainbox {
+    spacing: 8px;
+    children: [ inputbar, listview ];
+}
+
+inputbar {
+    background-color: @surface0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    spacing: 8px;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @mauve;
+}
+
+entry {
+    text-color: @text;
+    placeholder: "Search emoji...";
+    placeholder-color: @overlay0;
+}
+
+listview {
+    background-color: transparent;
+    columns: 8;
+    lines: 6;
+    spacing: 4px;
+    scrollbar: false;
+    fixed-height: false;
+}
+
+element {
+    background-color: transparent;
+    border-radius: 8px;
+    padding: 6px;
+    orientation: vertical;
+    cursor: pointer;
+}
+
+element normal.normal {
+    background-color: transparent;
+}
+
+element selected.normal {
+    background-color: @mauve;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    expand: true;
+}
+
+element normal.normal,
+element normal.urgent,
+element normal.active {
+    background-color: transparent;
+}
+
+element alternate.normal,
+element alternate.urgent,
+element alternate.active {
+    background-color: transparent;
+}
