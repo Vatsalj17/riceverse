@@ -1,12 +1,19 @@
 return {
   "AckslD/nvim-neoclip.lua",
   dependencies = {
-    -- you'll need at least one of these
-    -- {'nvim-telescope/telescope.nvim'},
-    -- {'ibhagwan/fzf-lua'},
+    "nvim-telescope/telescope.nvim",
   },
   config = function()
-    require('neoclip').setup()
+    require("neoclip").setup({
+      keys = {
+        telescope = {
+          i = {
+            paste = "<CR>",
+            paste_behind = "<C-k>",
+          },
+        },
+      },
+    })
     vim.keymap.set("n", "<leader>cb", ":Telescope neoclip<CR>", { noremap = true, silent = true })
   end,
 }

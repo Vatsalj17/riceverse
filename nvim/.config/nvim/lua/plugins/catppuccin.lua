@@ -9,5 +9,5 @@ return {
   end,
   config = function()
     vim.cmd.colorscheme("catppuccin")
-  end
+  end,
 }
