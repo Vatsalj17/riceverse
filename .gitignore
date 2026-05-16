@@ -9,8 +9,6 @@ Thumbs.db
 *.o
 *.obj
 
-# Ignore compiled binaries inside suckless folders
-# We want to keep the source, but not the result of 'make'
 suckless/.config/dwm/dwm
 suckless/.config/st/st
 suckless/.config/dmenu/dmenu
@@ -33,6 +31,8 @@ npm-debug.log
 id_rsa
 id_ed25519
 *.pem
+.luarc.json
+lazy-lock.json
 
 *.gif
 tools/.config/spicetify/CustomApps
