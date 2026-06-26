@@ -3,18 +3,16 @@ local map = vim.api.nvim_set_keymap
 
 map("v", "Y", '"+y', opts)
 map("n", "<leader>p", '"+p', opts)
-map("n", "<leader>t", ':belowright 15split | terminal<CR>', opts)
-map('n', '<leader>n', ':nohlsearch<CR>', opts)
-map('n', '<leader>`~', ':!/home/Vatsal/.config/nvim/lua/plugins/trash/which-key-toggle.sh<CR>', opts)
-map('n', '<leader>rs', ':!/home/Vatsal/.config/nvim/lua/plugins/trash/suggestions-remove.sh<CR>', opts)
-map('i', '<C-H>', '<C-W>', opts)
-map('i', '<C-BS>', '<C-W>', opts)
+map("n", "<leader>t", ":belowright 15split | terminal<CR>", opts)
+map("n", "<leader>n", ":nohlsearch<CR>", opts)
+map("n", "<leader>`~", ":!~/.config/nvim/lua/plugins/trash/which-key-toggle.sh<CR>", opts)
+map("n", "<leader>rs", ":!~/.config/nvim/lua/plugins/trash/suggestions-remove.sh<CR>", opts)
+map("i", "<C-H>", "<C-W>", opts)
+map("i", "<C-BS>", "<C-W>", opts)
 map("n", "<leader>bn", ":bnext<CR>", opts)
 map("n", "<leader>bp", ":bprevious<CR>", opts)
 map("n", "<leader>j", ":bprevious<CR>", opts)
 map("n", "<leader>k", ":bnext<CR>", opts)
--- map("n", "<Tab>", ":bnext<CR>", opts)
--- map("n", "<S-Tab>", ":bprevious<CR>", opts)
 map("n", "<S-Tab>", "<C-^>", opts) -- previous buffer
 map("n", "<leader>bd", ":bd<CR>", opts)
 map("n", "<leader>bD", ":%bd|e#|bd#<CR>", opts)
@@ -22,10 +20,10 @@ map("n", "<leader>bb", ":Telescope buffers<CR>", opts)
 -- map("n", "<C-C>", ":bd<CR>", opts)
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "html",
-    callback = function()
-        vim.keymap.set("n", "<leader>oh", ":!firefox %:p &<CR>", { buffer = true })
-    end
+  pattern = "html",
+  callback = function()
+    vim.keymap.set("n", "<leader>oh", ":!firefox %:p &<CR>", { buffer = true })
+  end,
 })
 
 local keys = {
@@ -42,12 +40,12 @@ for _, mode in ipairs({ "n", "i", "v" }) do
 end
 
 vim.keymap.set("n", "<leader>rp", function()
-    local plugin = vim.fn.input("Plugin to reload: ")
-    for k in pairs(package.loaded) do
-        if k:match(plugin) then
-            package.loaded[k] = nil
-        end
+  local plugin = vim.fn.input("Plugin to reload: ")
+  for k in pairs(package.loaded) do
+    if k:match(plugin) then
+      package.loaded[k] = nil
     end
-    require(plugin)
-    print("Reloaded " .. plugin)
+  end
+  require(plugin)
+  print("Reloaded " .. plugin)
 end, { desc = "Reload plugin" })

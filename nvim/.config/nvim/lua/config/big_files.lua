@@ -33,6 +33,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     vim.opt_local.swapfile = false
     vim.bo[args.buf].bufhidden = "unload"
 
+    -- Explicitly disable heavy UI plugins
+    vim.b[args.buf].miniindentscope_disable = true
+    pcall(function() require("ibl").setup_buffer(args.buf, { enabled = false }) end)
+    pcall(function() require("colorizer").detach_from_buffer(args.buf) end)
+
     vim.api.nvim_clear_autocmds({ group = "LargeFile", buffer = args.buf })
   end,
 })

@@ -66,7 +66,7 @@ return {
           settings = {
             python = {
               analysis = {
-                extraPaths = { "/home/Vatsal/Codes/Python/OpenCV/stubs" },
+                extraPaths = { vim.fn.expand("~/Codes/Python/OpenCV/stubs") },
               },
             },
           },

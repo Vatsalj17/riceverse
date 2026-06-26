@@ -15,9 +15,9 @@ hl.on("hyprland.start", function()
     "awww-daemon",
     "hypridle",
     "XDG_SESSION_TYPE=x11 kdeconnectd",
-    "gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'",
+    "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'",
+    "systemctl --user set-environment GTK_THEME=catppuccin-mocha-mauve-standard+default:dark",
     "xhost +SI:localuser:root",
-    "gnome-keyring-daemon --start --components=secrets,ssh",
   }
 
   for _, cmd in ipairs(daemons) do
@@ -25,10 +25,8 @@ hl.on("hyprland.start", function()
   end
 
   -- Scripts
-  hl.exec_cmd("/home/Vatsal/.config/hypr/scripts/battery-alert.sh &")
-  hl.exec_cmd("/home/Vatsal/.config/hypr/scripts/ram-monitor.sh &")
-  hl.exec_cmd("/home/Vatsal/.config/hypr/scripts/cpu_temp_monitor.sh &")
-  hl.exec_cmd("/home/Vatsal/.config/hypr/scripts/wallpaper-rotator.sh &")
+  hl.exec_cmd("~/.config/hypr/scripts/system-monitor.sh &")
+  hl.exec_cmd("~/.config/hypr/scripts/wallpaper-rotator.sh &")
   hl.exec_cmd("~/.config/hypr/scripts/update_wallpaper_cache.sh")
 
   -- Delayed launches
@@ -74,7 +72,7 @@ for class_name, opacity_val in pairs(opacities) do
 end
 
 -- spcial opacity of YouTube
-hl.window_rule({ name = "yt opacity", match = { title = ".*YouTube.*"}, opacity = "1.00 override"})
+hl.window_rule({ name = "yt opacity", match = { title = ".*YouTube.*" }, opacity = "1.00 override" })
 
 -- Floating Rules
 local floating_classes = { "^Tk$", "^Gitk$", "^qemu$", "^Matplotlib$", "^swayimg$" }

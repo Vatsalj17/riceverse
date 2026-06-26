@@ -5,8 +5,7 @@ return {
     config = function()
       require("rainbow-delimiters.setup")({
         strategy = {
-          -- a sane default: highlight based on filetype
-          [""] = require("rainbow-delimiters.strategy.global"),
+          -- Let the plugin use its smart default strategy
         },
         query = {
           lua = "rainbow-delimiters",

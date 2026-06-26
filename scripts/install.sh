@@ -8,7 +8,6 @@ LOG_FILE="$DOTFILES_DIR/install.log"
 # Colors
 GREEN="\033[0;32m"
 BLUE="\033[0;34m"
-YELLOW="\033[0;33m"
 RED="\033[0;31m"
 RESET="\033[0m"
 
@@ -31,12 +30,22 @@ DEPS["tools"]="mpv mpd ncmpcpp cava zathura zathura-pdf-mupdf spicetify-cli clan
 DEPS["gui-tools"]="thunar kvantum gtk3 gtk4 libreoffice-fresh"
 DEPS["suckless"]="libx11 libxft libxinerama"
 DEPS["assets"]="" # No dependencies, just pictures
+DEPS["Wallpapers"]="" # Wallpapers directory
 
 # 2. Helpers
 # ------------------------------------------------------------------------------
-log_info() { echo -e "${BLUE}[INFO]${RESET} $1"; }
-log_success() { echo -e "${GREEN}[OK]${RESET} $1"; }
-log_error() { echo -e "${RED}[ERROR]${RESET} $1"; }
+log_info() { 
+    echo -e "${BLUE}[INFO]${RESET} $1"
+    echo "[INFO] $1" >> "$LOG_FILE"
+}
+log_success() { 
+    echo -e "${GREEN}[OK]${RESET} $1"
+    echo "[OK] $1" >> "$LOG_FILE"
+}
+log_error() { 
+    echo -e "${RED}[ERROR]${RESET} $1"
+    echo "[ERROR] $1" >> "$LOG_FILE"
+}
 
 # 3. Logic
 # ------------------------------------------------------------------------------
@@ -71,7 +80,7 @@ resolve_deps_and_stow() {
             fi
         else
             log_error "Unknown module: $target"
-            echo "Available modules: ${!DEPS[@]}"
+            echo "Available modules: ${!DEPS[*]}"
             exit 1
         fi
     done
@@ -95,11 +104,17 @@ resolve_deps_and_stow() {
     cd "$DOTFILES_DIR" || exit
     
     for dir in "${stow_list[@]}"; do
-        # Special case for Wallpapers (root -> Pictures)
-        if [[ "$dir" == "assets" ]]; then
-            log_info "Stowing Assets to ~/Pictures..."
+        # Special case for Wallpapers
+        if [[ "$dir" == "Wallpapers" ]]; then
+            log_info "Stowing Wallpapers to ~/Pictures/Wallpapers..."
             mkdir -p "$HOME/Pictures/Wallpapers"
-            stow --adopt -v -d "$DOTFILES_DIR" -t "$HOME/Pictures" assets
+            stow --adopt -v -d "$DOTFILES_DIR" -t "$HOME/Pictures/Wallpapers" Wallpapers
+            continue
+        fi
+
+        if [[ "$dir" == "assets" ]]; then
+            log_info "Stowing Assets to ~..."
+            stow --adopt -v -d "$DOTFILES_DIR" -t "$HOME" assets
             continue
         fi
 
@@ -136,6 +151,8 @@ compile_suckless() {
 # 4. Main
 # ------------------------------------------------------------------------------
 main() {
+    echo -e "\n=== Install Run Started at $(date) ===" >> "$LOG_FILE"
+
     # Check if stow is installed explicitly first (bootstrap problem)
     if ! command -v stow &> /dev/null; then
         echo "Installing Stow..."

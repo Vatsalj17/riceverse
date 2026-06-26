@@ -26,7 +26,7 @@ alias glog="git log --graph --abbrev-commit --decorate --all --format=format:'%C
 alias code='nvim'
 alias nvimc='nvim --clean'
 alias resetlock='sudo faillock --reset'
-alias pwndbg='gdb -ex "source /home/Vatsal/Developer/pwndbg/gdbinit.py"'
+alias pwndbg='gdb -ex "source ~/Developer/pwndbg/gdbinit.py"'
 
 ###   exports   ###
 PS1='[\u@\h \W]\$ '
@@ -80,7 +80,10 @@ elif [[ "$TERM" == "foot" ]]; then
 fi
 
 case "$TERM" in xterm-kitty | tmux-256color | foot | xterm-256color)
-    eval "$(starship init bash)"
+    if [[ ! -f ~/.cache/starship_init.bash ]]; then
+        starship init bash > ~/.cache/starship_init.bash
+    fi
+    source "$HOME/.cache/starship_init.bash"
     alias heavy='export STARSHIP_CONFIG=~/.config/starship_heavy.toml'
     alias simple='unset STARSHIP_CONFIG'
     ;;

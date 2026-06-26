@@ -13,14 +13,26 @@ RED="\033[0;31m"
 RESET="\033[0m"
 
 # Valid Stow Modules (Must match directory names)
-VALID_MODULES=("shell" "terminal" "nvim" "hyprland" "tools" "gui-tools" "suckless" "assets")
+VALID_MODULES=("shell" "terminal" "nvim" "hyprland" "tools" "gui-tools" "suckless" "assets" "Wallpapers")
 
 # 2. Helpers
 # ------------------------------------------------------------------------------
-log_info() { echo -e "${BLUE}[INFO]${RESET} $1"; }
-log_success() { echo -e "${GREEN}[OK]${RESET} $1"; }
-log_warn() { echo -e "${YELLOW}[WARN]${RESET} $1"; }
-log_error() { echo -e "${RED}[ERROR]${RESET} $1"; }
+log_info() { 
+    echo -e "${BLUE}[INFO]${RESET} $1"
+    echo "[INFO] $1" >> "$LOG_FILE"
+}
+log_success() { 
+    echo -e "${GREEN}[OK]${RESET} $1"
+    echo "[OK] $1" >> "$LOG_FILE"
+}
+log_warn() { 
+    echo -e "${YELLOW}[WARN]${RESET} $1"
+    echo "[WARN] $1" >> "$LOG_FILE"
+}
+log_error() { 
+    echo -e "${RED}[ERROR]${RESET} $1"
+    echo "[ERROR] $1" >> "$LOG_FILE"
+}
 
 # 3. Unstow Logic
 # ------------------------------------------------------------------------------
@@ -52,11 +64,17 @@ unstow_modules() {
 
     for mod in "${modules_to_remove[@]}"; do
         
-        # Special Case: Assets (Wallpapers)
+        # Special Case: Wallpapers
+        if [[ "$mod" == "Wallpapers" ]]; then
+            log_info "Unlinking Wallpapers..."
+            stow -D -v -d "$DOTFILES_DIR" -t "$HOME/Pictures/Wallpapers" Wallpapers
+            continue
+        fi
+
+        # Special Case: Assets
         if [[ "$mod" == "assets" ]]; then
-            log_info "Unlinking Assets (Wallpapers)..."
-            # We target ~/Pictures just like in install.sh
-            stow -D -v -d "$DOTFILES_DIR" -t "$HOME/Pictures" assets
+            log_info "Unlinking Assets..."
+            stow -D -v -d "$DOTFILES_DIR" -t "$HOME" assets
             continue
         fi
 
@@ -118,6 +136,8 @@ cleanup_dead_links() {
 # 6. Main
 # ------------------------------------------------------------------------------
 main() {
+    echo -e "\n=== Uninstall Run Started at $(date) ===" >> "$LOG_FILE"
+    
     unstow_modules "$@"
     
     # Optional: Run cleanup
