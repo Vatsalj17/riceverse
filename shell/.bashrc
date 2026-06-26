@@ -11,18 +11,22 @@ alias rm='rm -Iv'
 alias objdump='objdump -M intel --disassembler-color=on'
 alias xxd='xxd -R always'
 alias less='less -R'
+alias diff='diff --color=always -t --tabsize=4'
 alias gitbkp='$HOME/.config/hypr/scripts/backup.sh'
-alias gtop='sudo intel_gpu_top'
+alias gputop='sudo intel_gpu_top'
 alias open='xdg-open'
 alias todo='dooit'
 alias pgsql='/usr/pgadmin4/venv/bin/python /usr/pgadmin4/web/pgAdmin4.py'
 alias localsrv='. ~/Codes/Python/Projects/local/.venv/bin/activate && python ~/Codes/Python/Projects/local/main.py && deactivate'
 alias sstxt='. ~/Codes/Python/Scripts/imgtotxt/.venv/bin/activate && python ~/Codes/Python/Scripts/imgtotxt/main.py && deactivate'
 alias pysrc='. .venv/bin/activate'
+alias pyinit='python -m venv .venv'
 alias esp=". ~/esp/esp-idf/export.sh"
 alias glog="git log --graph --abbrev-commit --decorate --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white) - %an%C(reset)%C(auto)%d%C(reset)'"
 alias code='nvim'
-alias updatemirrors='sudo reflector --country India,Singapore,Japan --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && sudo pacman -Syy'
+alias nvimc='nvim --clean'
+alias resetlock='sudo faillock --reset'
+alias pwndbg='gdb -ex "source /home/Vatsal/Developer/pwndbg/gdbinit.py"'
 
 ###   exports   ###
 PS1='[\u@\h \W]\$ '
@@ -58,6 +62,7 @@ path_add() {
 
 path_add "$HOME/.cargo/bin"
 path_add "$HOME/.local/share/gem/ruby/3.4.0/bin"
+path_add "$HOME/.local/bin"
 path_add "$VEDIC_INSTALL/bin"
 path_add "$PYENV_ROOT/bin"
 
@@ -74,7 +79,7 @@ elif [[ "$TERM" == "foot" ]]; then
     fastfetch --config "$HOME/.config/fastfetch/configf.jsonc"
 fi
 
-case "$TERM" in xterm-kitty|tmux-256color|foot|xterm-256color)
+case "$TERM" in xterm-kitty | tmux-256color | foot | xterm-256color)
     eval "$(starship init bash)"
     alias heavy='export STARSHIP_CONFIG=~/.config/starship_heavy.toml'
     alias simple='unset STARSHIP_CONFIG'
@@ -112,13 +117,27 @@ cd() {
     if [[ $1 =~ ^-[0-9]+$ ]]; then
         local n=${1#-}
         local path=
-        for ((i=0; i<n; i++)); do
+        for ((i = 0; i < n; i++)); do
             path+="../"
         done
         builtin cd "$path" || return
     else
         builtin cd "$@" || return
     fi
+}
+
+updatemirrors() {
+    echo "Fetching mirrors..."
+    sudo reflector \
+        --country India,Singapore,Japan \
+        --latest 20 \
+        --protocol https \
+        --sort rate \
+        --fastest 10 \
+        --age 12 \
+        --save /etc/pacman.d/mirrorlist || { echo "reflector failed"; return 1; }
+    echo "Syncing databases..."
+    sudo pacman -Syy && echo "Done"
 }
 
 codesnap() {
@@ -146,7 +165,7 @@ savepow() {
     echo "Initiating Power Saver..."
     sudo bootctl set-default lts.conf
     echo "[+] Bootloader target set to: LTS Kernel"
-    echo "1" | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo > /dev/null
+    echo "1" | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo >/dev/null
     echo "[+] Intel Turbo Boost: DISABLED"
     powerprofilesctl set power-saver
     echo "[+] Platform Profile: Power-Saver"
@@ -157,7 +176,7 @@ resetpow() {
     echo "Restoring Power Mode..."
     sudo bootctl set-default zen.conf
     echo "[+] Bootloader target set to: Zen Kernel"
-    echo "0" | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo > /dev/null
+    echo "0" | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo >/dev/null
     echo "[+] Intel Turbo Boost: ENABLED"
     powerprofilesctl set balanced
     echo "[+] Platform Profile: Balanced"
@@ -167,15 +186,15 @@ resetpow() {
 __fzf_history_search() {
     local selected
     selected=$(
-        builtin history \
-        | sed 's/^ *[0-9]\+ *//' \
-        | tac \
-        | awk '!seen[$0]++' \
-        | fzf --no-sort \
-              --scheme=history \
-              --query "$READLINE_LINE" \
-              --height 40% \
-              --border
+        builtin history |
+            sed 's/^ *[0-9]\+ *//' |
+            tac |
+            awk '!seen[$0]++' |
+            fzf --no-sort \
+                --scheme=history \
+                --query "$READLINE_LINE" \
+                --height 40% \
+                --border
     )
     [[ -n $selected ]] && {
         READLINE_LINE="$selected"
@@ -185,3 +204,6 @@ __fzf_history_search() {
 
 bind -x '"\C-r": __fzf_history_search'
 shopt -s histappend
+
+shopt -s cdspell
+shopt -s autocd

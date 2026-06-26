@@ -21,7 +21,7 @@
       "4": "󱡛 ",
       "5": "󰀳 ",
       "6": "󰆧 ",
-      "7": "󰖟 ",
+      "7": "󰺕 ",
       "8": " ",
       "9": "󰆍 ",
       "10": "󰈹 "
@@ -76,7 +76,7 @@
         "<span foreground='#7D4698'> </span> $1",
 
 
-      "(.*) - YouTube": 
+      "(.*) - YouTube(.*)": 
         "<span foreground='#ff0000'> </span> $1",
       "YouTube": 
         "<span foreground='#ff0000'> </span> YouTube",
@@ -116,7 +116,7 @@
       "(.*)Spotify Premium": 
         "<span foreground='#a6e3a1'> </span> Spotify Premium",
 
-      "(.*)YouTube Music": 
+      "(.*)YouTube Music(.*)": 
         "<span foreground='#ff0000'>󰐌 </span> YouTube Music",
 
       "OBS(.*)": 

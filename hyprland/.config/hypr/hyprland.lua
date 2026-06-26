@@ -54,6 +54,7 @@ local opacities = {
   ["kitty"] = "0.70 override",
   ["foot"] = "0.70 override",
   ["code"] = "0.80 override",
+  ["zen"] = "0.90 override",
   ["brave-browser"] = "0.92 override",
   ["brave-kinpkbniadkppecjaginbegiljofpcfc-Default"] = "0.95 override",
   ["brave-cinhimbnkkaeohfgghhklpknlkffjgod-Default"] = "0.80 override",
@@ -72,6 +73,9 @@ for class_name, opacity_val in pairs(opacities) do
   })
 end
 
+-- spcial opacity of YouTube
+hl.window_rule({ name = "yt opacity", match = { title = ".*YouTube.*"}, opacity = "1.00 override"})
+
 -- Floating Rules
 local floating_classes = { "^Tk$", "^Gitk$", "^qemu$", "^Matplotlib$", "^swayimg$" }
 for _, class_name in ipairs(floating_classes) do
@@ -82,3 +86,5 @@ for _, class_name in ipairs(floating_classes) do
     center = true,
   })
 end
+
+hl.window_rule({ match = { title = "Picture-in-Picture" }, float = true })

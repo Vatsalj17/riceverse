@@ -19,7 +19,7 @@ map("n", "<S-Tab>", "<C-^>", opts) -- previous buffer
 map("n", "<leader>bd", ":bd<CR>", opts)
 map("n", "<leader>bD", ":%bd|e#|bd#<CR>", opts)
 map("n", "<leader>bb", ":Telescope buffers<CR>", opts)
-map("n", "<C-C>", ":bd<CR>", opts)
+-- map("n", "<C-C>", ":bd<CR>", opts)
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "html",
@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd("FileType", {
 local keys = {
   "<Up>", "<Down>", "<Left>", "<Right>",
   "<Home>", "<End>", "<PageUp>", "<PageDown>",
-  "<Insert>"
+  "<Insert>", "<Delete>"
 }
 
 -- Apply to normal, insert, visual modes

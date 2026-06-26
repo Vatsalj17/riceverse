@@ -49,8 +49,13 @@ SELECTED=$(echo -e "$entries" | rofi \
 WALLPAPER_PATH="${name_to_path[$SELECTED]}"
 [[ -z "$WALLPAPER_PATH" ]] && exit 0
 
+killed_mpvpaper=0
+
 pkill -x hyprpaper 2>/dev/null
-pkill -x mpvpaper 2>/dev/null
+pkill -x mpvpaper 2>/dev/null && killed_mpvpaper=1
 pgrep -x awww-daemon >/dev/null || awww-daemon &
 awww img "$WALLPAPER_PATH" --transition-type any
+if (( killed_mpvpaper == 1 )); then
+    awww img "$WALLPAPER_PATH" --transition-type any
+fi
 echo "Wallpaper set: $SELECTED"

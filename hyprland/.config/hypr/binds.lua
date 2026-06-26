@@ -22,12 +22,6 @@ hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("~/.config/waybar/scripts/wifi-menu.sh"))
 hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("~/.config/waybar/scripts/power-menu.sh"))
 hl.bind(
-  mainMod .. " + Y",
-  hl.dsp.exec_cmd(
-    [[hyprctl clients | grep -q agimnkijcaahngcdmfeangaknmldooml && hyprctl dispatch workspace 8 || (hyprctl dispatch workspace 8 && /opt/brave-bin/brave --password-store=basic --enable-features=UseOzonePlatform --ozone-platform=wayland --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml &)]]
-  )
-)
-hl.bind(
   altMod .. " + S",
   hl.dsp.exec_cmd(
     "source ~/Codes/Python/Scripts/imgtotxt/.venv/bin/activate && python ~/Codes/Python/Scripts/imgtotxt/main.py && deactivate"
@@ -97,26 +91,26 @@ hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.resize({ x = 0, y = 10, relativ
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-hl.gesture({
-    fingers = 4,
-    direction = "horizontal",
-    action = "workspace"
-})
-hl.gesture({
-    fingers = 3,
-    direction = "horizontal",
-    action = "workspace"
-})
-hl.gesture({
-    fingers = 4,
-    direction = "up",
-    action = "fullscreen"
-})
-hl.gesture({
-    fingers = 4,
-    direction = "down",
-    action = "close"
-})
+-- hl.gesture({
+--     fingers = 4,
+--     direction = "horizontal",
+--     action = "workspace"
+-- })
+-- hl.gesture({
+--     fingers = 3,
+--     direction = "horizontal",
+--     action = "workspace"
+-- })
+-- hl.gesture({
+--     fingers = 4,
+--     direction = "up",
+--     action = "fullscreen"
+-- })
+-- hl.gesture({
+--     fingers = 4,
+--     direction = "down",
+--     action = "close"
+-- })
 
 -- Special Workspaces (Minimize trick via Lua function chaining)
 hl.bind(mainMod .. " + M", function()
@@ -142,30 +136,30 @@ hl.bind(mainMod .. " + CTRL + M", hl.dsp.focus({ workspace = "empty" }))
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
--- Multimedia & Hardware Controls (bindel equivalent: locked & repeating)
-hl.bind(
-  "XF86AudioRaiseVolume",
-  hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ 0 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),
-  { locked = true, repeating = true }
-)
-hl.bind(
-  "XF86AudioLowerVolume",
-  hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
-  { locked = true, repeating = true }
-)
-hl.bind(
-  "XF86AudioMute",
-  hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
-  { locked = true, repeating = true }
-)
-hl.bind(
-  "XF86AudioMicMute",
-  hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
-  { locked = true, repeating = true }
-)
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl s 5%+"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 5%-"), { locked = true, repeating = true })
-hl.bind("XF86ScreenSaver", hl.dsp.exec_cmd("hyprlock"), { locked = true })
+-- -- Multimedia & Hardware Controls (bindel equivalent: locked & repeating)
+-- hl.bind(
+--   "XF86AudioRaiseVolume",
+--   hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ 0 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),
+--   { locked = true, repeating = true }
+-- )
+-- hl.bind(
+--   "XF86AudioLowerVolume",
+--   hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+--   { locked = true, repeating = true }
+-- )
+-- hl.bind(
+--   "XF86AudioMute",
+--   hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+--   { locked = true, repeating = true }
+-- )
+-- hl.bind(
+--   "XF86AudioMicMute",
+--   hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+--   { locked = true, repeating = true }
+-- )
+-- hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl s 5%+"), { locked = true, repeating = true })
+-- hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 5%-"), { locked = true, repeating = true })
+-- hl.bind("XF86ScreenSaver", hl.dsp.exec_cmd("hyprlock"), { locked = true })
 
 hl.bind("CTRL + F1", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true, repeating = true })
 hl.bind("CTRL + F2", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
@@ -178,10 +172,11 @@ hl.bind("CTRL + F4", hl.dsp.exec_cmd("brightnessctl s 5%-"), { locked = true, re
 hl.bind("CTRL + F5", hl.dsp.exec_cmd("brightnessctl s 5%+"), { locked = true, repeating = true })
 
 -- Playerctl (bindl equivalent: locked)
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+-- hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+-- hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+-- hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("Pause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+hl.bind(altMod .. " + P", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 -- Screenshots & Recording (Hyprshot / wf-recorder)

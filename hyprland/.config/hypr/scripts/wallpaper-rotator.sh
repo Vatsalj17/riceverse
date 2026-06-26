@@ -3,6 +3,7 @@
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
 CACHE_FILE="$HOME/.cache/wallpaper_list.txt"
 SLEEP_DURATION=120
+BREAK=600
 
 echo "[Init] Killing interfering wallpaper daemons..."
 pkill -x hyprpaper 2>/dev/null
@@ -16,8 +17,8 @@ echo "[Init] awww-daemon is running. Starting main loop..."
 while true; do
     # If live wallpaper is running, skip rotation entirely
     if pgrep -x mpvpaper >/dev/null; then
-        echo "[Loop] mpvpaper is active. Skipping rotation."
-        sleep "$SLEEP_DURATION"
+        echo "[Loop] mpvpaper is active. Going on a break."
+        sleep "$BREAK"
         continue
     fi
 

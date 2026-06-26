@@ -4,7 +4,7 @@ local mocha = require("mocha")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
-hl.env("GTK_THEME", "Adwaita-dark")
+hl.env("GTK_THEME", "catppuccin-mocha-mauve-standard+default:dark")
 hl.env("SSH_AUTH_SOCK", "/run/user/1000/keyring/ssh")
 
 hl.config({

@@ -8,7 +8,8 @@ mkdir -p "$THUMB_DIR"
 
 generate_thumbnail() {
     local video="$1"
-    local filename=$(basename "$video")
+    local filename
+    filename=$(basename "$video")
     local thumb_path="$THUMB_DIR/${filename%.*}.png"
 
     if [[ ! -f "$thumb_path" ]]; then
@@ -57,5 +58,5 @@ pkill -x awww-daemon 2>/dev/null
 pkill -x hyprpaper 2>/dev/null
 pkill -x mpvpaper 2>/dev/null
 
-mpvpaper -p -f -o "--loop --no-audio --load-scripts=no" eDP-1 "$VIDEO_PATH" &
+mpvpaper -p -f -o "--loop --no-audio --load-scripts=no --hwdec=auto" eDP-1 "$VIDEO_PATH" &
 echo "Live wallpaper set: $SELECTED"
