@@ -49,3 +49,25 @@ vim.keymap.set("n", "<leader>rp", function()
   require(plugin)
   print("Reloaded " .. plugin)
 end, { desc = "Reload plugin" })
+
+-- indentation toggler and command
+vim.api.nvim_create_user_command("Indent", function(fun_opts)
+  local space = tonumber(fun_opts.args)
+  if space then
+    vim.opt_local.shiftwidth = space
+    vim.opt_local.tabstop = space
+    vim.opt_local.softtabstop = space
+    print("Indentation set to " .. space .. " spaces")
+  else
+    print("Please provide a number, e.g., :Indent 2")
+  end
+end, { nargs = 1, desc = "Set buffer indentation width" })
+
+vim.keymap.set("n", "<leader>ti", function()
+  local current = vim.bo.shiftwidth
+  local new_indent = current == 4 and 2 or 4
+  vim.opt_local.shiftwidth = new_indent
+  vim.opt_local.tabstop = new_indent
+  vim.opt_local.softtabstop = new_indent
+  print("Toggled indentation to " .. new_indent .. " spaces")
+end, { desc = "Toggle indent between 2 and 4" })

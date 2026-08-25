@@ -54,6 +54,7 @@ hl.bind(altMod .. " + N", hl.dsp.exec_cmd("swaync-client -t"))
 hl.bind(altMod .. " + W", hl.dsp.exec_cmd("quickshell"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpapers.sh"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/live_wallpapers.sh"))
+hl.bind(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-laptop-display.sh"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("hyprsunset -t 4500"))
 hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("hyprsunset -t 6500 || pkill hyprsunset"))
 hl.bind(
@@ -136,46 +137,45 @@ hl.bind(mainMod .. " + CTRL + M", hl.dsp.focus({ workspace = "empty" }))
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
--- -- Multimedia & Hardware Controls (bindel equivalent: locked & repeating)
--- hl.bind(
---   "XF86AudioRaiseVolume",
---   hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ 0 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),
---   { locked = true, repeating = true }
--- )
--- hl.bind(
---   "XF86AudioLowerVolume",
---   hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
---   { locked = true, repeating = true }
--- )
--- hl.bind(
---   "XF86AudioMute",
---   hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
---   { locked = true, repeating = true }
--- )
--- hl.bind(
---   "XF86AudioMicMute",
---   hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
---   { locked = true, repeating = true }
--- )
--- hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl s 5%+"), { locked = true, repeating = true })
--- hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 5%-"), { locked = true, repeating = true })
--- hl.bind("XF86ScreenSaver", hl.dsp.exec_cmd("hyprlock"), { locked = true })
-
-hl.bind("CTRL + F1", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true, repeating = true })
-hl.bind("CTRL + F2", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
+-- Multimedia & Hardware Controls (bindel equivalent: locked & repeating)
 hl.bind(
-  "CTRL + F3",
+  "XF86AudioRaiseVolume",
   hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ 0 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),
   { locked = true, repeating = true }
 )
-hl.bind("CTRL + F4", hl.dsp.exec_cmd("brightnessctl s 5%-"), { locked = true, repeating = true })
-hl.bind("CTRL + F5", hl.dsp.exec_cmd("brightnessctl s 5%+"), { locked = true, repeating = true })
+hl.bind(
+  "XF86AudioLowerVolume",
+  hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+  { locked = true, repeating = true }
+)
+hl.bind(
+  "XF86AudioMute",
+  hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+  { locked = true, repeating = true }
+)
+hl.bind(
+  "XF86AudioMicMute",
+  hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+  { locked = true, repeating = true }
+)
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl s 5%+"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 5%-"), { locked = true, repeating = true })
+hl.bind("XF86ScreenSaver", hl.dsp.exec_cmd("hyprlock"), { locked = true })
+
+hl.bind("CTRL + 1", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true, repeating = true })
+hl.bind("CTRL + 2", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
+hl.bind(
+  "CTRL + 3",
+  hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ 0 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),
+  { locked = true, repeating = true }
+)
+hl.bind("CTRL + 4", hl.dsp.exec_cmd("brightnessctl s 5%-"), { locked = true, repeating = true })
+hl.bind("CTRL + 5", hl.dsp.exec_cmd("brightnessctl s 5%+"), { locked = true, repeating = true })
 
 -- Playerctl (bindl equivalent: locked)
--- hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
--- hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
--- hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("Pause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind(altMod .. " + P", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
@@ -192,3 +192,7 @@ hl.bind(
   hl.dsp.exec_cmd([[wf-recorder -g "$(slurp)" -f ~/Videos/Screenrecordings/recording-$(date +%F_%H-%M-%S).mp4]])
 )
 hl.bind(mainMod .. " + CTRL + Print", hl.dsp.exec_cmd("pkill -INT wf-recorder"))
+
+-- hl.bind("Menu", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+hl.bind("CTRL + Menu", hl.dsp.exec_cmd("hyprshot -m output -o ~/Pictures/Screenshots"))
+hl.bind("CTRL + SHIFT + Menu", hl.dsp.exec_cmd("hyprshot -m region -o ~/Pictures/Screenshots"))

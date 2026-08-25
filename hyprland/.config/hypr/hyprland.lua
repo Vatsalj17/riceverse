@@ -6,6 +6,7 @@ hl.monitor({
   mode = "preferred",
   position = "auto",
   scale = "auto",
+  -- mirror = "DP-1",
 })
 
 hl.on("hyprland.start", function()

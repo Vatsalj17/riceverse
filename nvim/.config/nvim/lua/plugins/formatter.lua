@@ -24,13 +24,16 @@ return {
       markdown = { "prettier" },
       sh = { "shfmt" },
       bash = { "shfmt" },
-      c = { "clang-format" },
-      cpp = { "clang-format" },
+      c = { "clang_format" },
+      cpp = { "clang_format" },
       asm = { "asmfmt" },
       systemverilog = { "verible" },
     },
     -- 💡 Engineering Extra: Customizing formatter arguments
     formatters = {
+      clang_format = {
+        prepend_args = { "--style=file" },
+      },
       stylua = {
         prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" },
       },

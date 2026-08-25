@@ -50,6 +50,7 @@ export FZF_DEFAULT_OPTS=" \
 --color=border:#313244,label:#CDD6F4"
 export VEDIC_INSTALL="$HOME/.vedic"
 export PYENV_ROOT="$HOME/.pyenv"
+export JULIA_ROOT="$HOME/.juliaup"
 export MANPAGER="nvim +Man!"
 export BAT_THEME="Catppuccin Mocha"
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
@@ -65,6 +66,7 @@ path_add "$HOME/.local/share/gem/ruby/3.4.0/bin"
 path_add "$HOME/.local/bin"
 path_add "$VEDIC_INSTALL/bin"
 path_add "$PYENV_ROOT/bin"
+path_add "$JULIA_ROOT/bin"
 
 if [[ -f "$HOME/.env" ]]; then
     set -a
@@ -81,7 +83,7 @@ fi
 
 case "$TERM" in xterm-kitty | tmux-256color | foot | xterm-256color)
     if [[ ! -f ~/.cache/starship_init.bash ]]; then
-        starship init bash > ~/.cache/starship_init.bash
+        starship init bash >~/.cache/starship_init.bash
     fi
     source "$HOME/.cache/starship_init.bash"
     alias heavy='export STARSHIP_CONFIG=~/.config/starship_heavy.toml'
@@ -138,9 +140,32 @@ updatemirrors() {
         --sort rate \
         --fastest 10 \
         --age 12 \
-        --save /etc/pacman.d/mirrorlist || { echo "reflector failed"; return 1; }
+        --save /etc/pacman.d/mirrorlist || {
+        echo "reflector failed"
+        return 1
+    }
     echo "Syncing databases..."
     sudo pacman -Syy && echo "Done"
+}
+
+hyprupdate() {
+    yay -Syu aquamarine-git \
+        hyprcursor-git \
+        hyprgraphics-git \
+        hypridle-git \
+        hyprland-git \
+        hyprland-guiutils-git \
+        hyprland-qt-support-git \
+        hyprlang-git \
+        hyprlock-git \
+        hyprpaper-git \
+        hyprshot-git \
+        hyprsunset-git \
+        hyprtoolkit-git \
+        hyprutils-git \
+        hyprwayland-scanner-git \
+        hyprwire-git \
+        xdg-desktop-portal-hyprland-git
 }
 
 codesnap() {
