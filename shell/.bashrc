@@ -17,8 +17,8 @@ alias gputop='sudo intel_gpu_top'
 alias open='xdg-open'
 alias todo='dooit'
 alias pgsql='/usr/pgadmin4/venv/bin/python /usr/pgadmin4/web/pgAdmin4.py'
-alias localsrv='. ~/Codes/Python/Projects/local/.venv/bin/activate && python ~/Codes/Python/Projects/local/main.py && deactivate'
-alias sstxt='. ~/Codes/Python/Scripts/imgtotxt/.venv/bin/activate && python ~/Codes/Python/Scripts/imgtotxt/main.py && deactivate'
+alias localsrv='. ~/codes/python/projects/local/.venv/bin/activate && python ~/codes/python/projects/local/main.py && deactivate'
+alias sstxt='. ~/codes/python/scripts/imgtotxt/.venv/bin/activate && python ~/codes/python/scripts/imgtotxt/main.py && deactivate'
 alias pysrc='. .venv/bin/activate'
 alias pyinit='python -m venv .venv'
 alias esp=". ~/esp/esp-idf/export.sh"
@@ -26,7 +26,8 @@ alias glog="git log --graph --abbrev-commit --decorate --all --format=format:'%C
 alias code='nvim'
 alias nvimc='nvim --clean'
 alias resetlock='sudo faillock --reset'
-alias pwndbg='gdb -ex "source ~/Developer/pwndbg/gdbinit.py"'
+alias pwndbg='gdb -ex "source ~/developer/pwndbg/gdbinit.py"'
+alias agyd='agy --dangerously-skip-permissions'
 
 ###   exports   ###
 PS1='[\u@\h \W]\$ '

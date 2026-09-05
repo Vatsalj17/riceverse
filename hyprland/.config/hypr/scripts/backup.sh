@@ -2,7 +2,7 @@
 
 COMMIT_MSG="Backup: $(date '+%Y-%m-%d %H:%M:%S')"
 
-DIR="$HOME/Codes"
+DIR="$HOME/codes"
 cd $DIR
 git add $DIR || exit 1
 

@@ -24,7 +24,7 @@ hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("~/.config/waybar/scripts/power-menu.
 hl.bind(
   altMod .. " + S",
   hl.dsp.exec_cmd(
-    "source ~/Codes/Python/Scripts/imgtotxt/.venv/bin/activate && python ~/Codes/Python/Scripts/imgtotxt/main.py && deactivate"
+    "source ~/codes/python/scripts/imgtotxt/.venv/bin/activate && python ~/codes/python/scripts/imgtotxt/main.py && deactivate"
   )
 )
 

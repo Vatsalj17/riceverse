@@ -12,7 +12,7 @@ hl.config({
     kb_layout = "us",
     follow_mouse = 1,
     force_no_accel = false,
-    sensitivity = 0,
+    sensitivity = 0.5,
     touchpad = {
       natural_scroll = true,
       tap_to_click = true,
@@ -58,7 +58,7 @@ hl.config({
 
     blur = {
       enabled = true,
-      size = 3,
+      size = 2,
       passes = 3,
       vibrancy = 0.1696,
     },
